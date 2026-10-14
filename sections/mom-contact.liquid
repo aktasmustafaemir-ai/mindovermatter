@@ -1,4 +1,44 @@
-<section class="contact-hero"><picture>{% if section.settings.mobile_image %}<source media="(max-width:749px)" srcset="{{ section.settings.mobile_image | image_url: width: 1000 }}">{% elsif section.settings.image == blank %}<source media="(max-width:749px)" srcset="{{ 'mom-contact-mobile.jpg' | asset_url }}">{% endif %}{% if section.settings.image %}{{ section.settings.image | image_url: width: 2000 | image_tag: fetchpriority: 'high' }}{% else %}<img src="{{ 'mom-contact-desktop.jpg' | asset_url }}" width="1600" height="1600" alt="Mind Over Matter">{% endif %}</picture><div></div><h1>{{ 'mom.contact_title' | t }}</h1></section><section class="mom-contact-details"><h2>{{ 'mom.contact' | t }}</h2>{% render 'mom-contact-info' %}</section><section class="contact-section">{% form 'contact', id: 'MomContact' %}{% if form.posted_successfully? %}<div class="form-success"><h2>{{ 'mom.thanks' | t }}</h2></div>{% else %}{{ form.errors | default_errors }}<input name="contact[name]" required autocomplete="name" placeholder="{{ 'mom.name' | t }} *" aria-label="{{ 'mom.name' | t }}"><div><input name="contact[email]" type="email" required autocomplete="email" placeholder="{{ 'mom.email' | t }} *" aria-label="{{ 'mom.email' | t }}"><input name="contact[phone]" type="tel" autocomplete="tel" placeholder="{{ 'mom.phone' | t }}" aria-label="{{ 'mom.phone' | t }}"></div><input name="contact[order_number]" placeholder="{{ 'mom.order_number' | t }}" aria-label="{{ 'mom.order_number' | t }}"><textarea name="contact[body]" rows="10" required placeholder="{{ 'mom.message' | t }}" aria-label="{{ 'mom.message' | t }}"></textarea><button type="submit">{{ 'mom.send' | t }}</button>{% endif %}{% endform %}</section>
+<section class="contact-hero mom-contact-hero">
+  <div class="mom-contact-hero-copy">
+    <p class="mom-eyebrow">MIND OVER MATTER / {% if request.locale.iso_code == 'en' %}CONTACT{% else %}İLETİŞİM{% endif %}</p>
+    <h1>{{ 'mom.contact_title' | t }}</h1>
+    <p>{% if request.locale.iso_code == 'en' %}Need help with a size, product or order? Get in touch.{% else %}Beden, ürün veya siparişiniz hakkında bir sorunuz mu var? Bize ulaşın.{% endif %}</p>
+  </div>
+  <picture>
+    {% if section.settings.image %}
+      {{ section.settings.image | image_url: width: 1000 | image_tag: widths: '400,700,1000', sizes: '(min-width: 750px) 35vw, 100vw', loading: 'lazy', alt: 'Mind Over Matter' }}
+    {% else %}
+      <img src="{{ 'mom-contact-desktop.jpg' | asset_img_url: '700x' }}" width="700" height="933" alt="Mind Over Matter" loading="lazy">
+    {% endif %}
+  </picture>
+</section>
+<div class="mom-contact-layout">
+  <section class="mom-contact-details">
+    <h2>{{ 'mom.contact' | t }}</h2>
+    {% render 'mom-contact-info' %}
+    <p class="mom-contact-tip">{% if request.locale.iso_code == 'en' %}For an existing order, include your order number so we can help you.{% else %}Mevcut bir sipariş için yazıyorsanız sipariş numaranızı da ekleyin.{% endif %}</p>
+  </section>
+  <section class="contact-section" aria-label="{{ 'mom.contact' | t }}">
+    {% form 'contact', id: 'MomContact' %}
+      {% if form.posted_successfully? %}
+        <div class="form-success" role="status"><h2>{{ 'mom.thanks' | t }}</h2></div>
+      {% else %}
+        {{ form.errors | default_errors }}
+        <label for="MomContactName">{{ 'mom.name' | t }} <span aria-hidden="true">*</span></label>
+        <input id="MomContactName" name="contact[name]" required autocomplete="name">
+        <div class="mom-contact-field-row">
+          <div><label for="MomContactEmail">{{ 'mom.email' | t }} <span aria-hidden="true">*</span></label><input id="MomContactEmail" name="contact[email]" type="email" required autocomplete="email"></div>
+          <div><label for="MomContactPhone">{{ 'mom.phone' | t }}</label><input id="MomContactPhone" name="contact[phone]" type="tel" autocomplete="tel"></div>
+        </div>
+        <label for="MomContactOrder">{{ 'mom.order_number' | t }}</label>
+        <input id="MomContactOrder" name="contact[order_number]">
+        <label for="MomContactMessage">{{ 'mom.message' | t }} <span aria-hidden="true">*</span></label>
+        <textarea id="MomContactMessage" name="contact[body]" rows="6" required></textarea>
+        <button type="submit">{{ 'mom.send' | t }}<span aria-hidden="true">↗</span></button>
+      {% endif %}
+    {% endform %}
+  </section>
+</div>
 {% schema %}
 {
   "name": "MOM Contact",

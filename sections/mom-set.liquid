@@ -1,0 +1,32 @@
+{%- liquid
+  assign top_product = section.settings.top_product | default: all_products['gray-hoodie']
+  assign bottom_product = section.settings.bottom_product | default: all_products['gray-baggy-sweatpants']
+  assign english = false
+  if request.locale.iso_code == 'en'
+    assign english = true
+  endif
+-%}
+{% if top_product != blank and bottom_product != blank %}
+  <section class="mom-set" aria-labelledby="MomSetTitle-{{ section.id }}">
+    <div class="mom-set-intro">
+      <p class="mom-eyebrow">03 / {% if english %}THE COMPLETE LOOK{% else %}BİRLİKTE DAHA İYİ{% endif %}</p>
+      <h2 id="MomSetTitle-{{ section.id }}">{% if english %}YOUR EVERYDAY<br>UNIFORM.{% else %}KOMBİNİN<br>TAMAM.{% endif %}</h2>
+      <p class="mom-section-description">{% if english %}Wear them together or make them your own. Discover the hoodie and sweatpants from Drop 001.{% else %}Birlikte giy, kendi stiline uyarla. Drop 001 hoodie ve eşofman altını keşfet.{% endif %}</p>
+      <p class="mom-set-note">{% if english %}Items are sold separately. Choose your size on each product page.{% else %}Ürünler ayrı satılır. Bedenini her ürünün sayfasında seçebilirsin.{% endif %}</p>
+    </div>
+    <div class="mom-set-grid">
+      {% render 'mom-card', product: top_product %}
+      {% render 'mom-card', product: bottom_product %}
+    </div>
+  </section>
+{% endif %}
+{% schema %}
+{
+  "name": "MOM • Kombini tamamla",
+  "settings": [
+    {"type": "product", "id": "top_product", "label": "Üst giyim"},
+    {"type": "product", "id": "bottom_product", "label": "Alt giyim"}
+  ],
+  "presets": [{"name": "MOM • Kombini tamamla"}]
+}
+{% endschema %}

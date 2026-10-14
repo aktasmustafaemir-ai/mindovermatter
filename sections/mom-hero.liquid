@@ -3,16 +3,18 @@
     {% if section.settings.mobile_image != blank %}
       <source media="(max-width:749px)" srcset="{{ section.settings.mobile_image | image_url: width: 1000 }}">
     {% elsif section.settings.image == blank %}
-      <source media="(max-width:749px)" srcset="{{ 'mom-live-hero.jpg' | asset_url }}">
+      <source media="(max-width:749px)" srcset="{{ 'mom-live-hero.jpg' | asset_img_url: '600x' }} 600w, {{ 'mom-live-hero.jpg' | asset_img_url: '1000x' }} 1000w" sizes="100vw">
     {% endif %}
     {% if section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750,1100,1500,2000,2400', sizes: '100vw', fetchpriority: 'high', class: 'mom-hero-image' }}
     {% else %}
-      <img src="{{ 'mom-live-hero.jpg' | asset_url }}" width="2000" height="1484" alt="Mind Over Matter — Drop 001" fetchpriority="high" class="mom-hero-image">
+      <img src="{{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }}" srcset="{{ 'mom-live-hero.jpg' | asset_img_url: '1000x' }} 1000w, {{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }} 1600w, {{ 'mom-live-hero.jpg' | asset_img_url: '2000x' }} 2000w" sizes="100vw" width="2000" height="2667" alt="Mind Over Matter — Drop 001" fetchpriority="high" class="mom-hero-image">
     {% endif %}
   </picture>
   <div class="hero-shade"></div><div class="hero-copy">
+    <p class="mom-eyebrow">MIND OVER MATTER / 001</p>
     <h1>{{ section.settings.heading | escape }}</h1>
+    <p class="mom-hero-description">{% if request.locale.iso_code == 'en' %}{{ section.settings.description_en | escape }}{% else %}{{ section.settings.description | escape }}{% endif %}</p>
     <a class="hero-cta" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{% if request.locale.iso_code == 'en' %}{{ section.settings.button_en | escape }}{% else %}{{ section.settings.button | escape }}{% endif %}</a>
   </div>
 </section>
@@ -34,7 +36,19 @@
       "type": "text",
       "id": "heading",
       "label": "Başlık",
-      "default": "DROP 01 YAYINDA"
+      "default": "DROP 001."
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Açıklama — Türkçe",
+      "default": "350 GSM pamuk. Oversize kalıp. İşlemeli detaylar."
+    },
+    {
+      "type": "text",
+      "id": "description_en",
+      "label": "Açıklama — İngilizce",
+      "default": "350 GSM cotton. Oversized fit. Embroidered details."
     },
     {
       "type": "text",

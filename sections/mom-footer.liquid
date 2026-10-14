@@ -14,11 +14,13 @@
     <div><h2>{{ 'mom.shop' | t }}</h2>{% render 'mom-nav', menu: section.settings.menu %}</div>
     <div><h2>{{ 'mom.customer_care' | t }}</h2><a href="{{ routes.search_url }}">{{ 'mom.search' | t }}</a>{% if section.settings.contact != blank or pages.contact != blank %}<a href="{{ section.settings.contact | default: pages.contact.url }}">{{ 'mom.contact' | t }}</a>{% endif %}{% render 'mom-contact-info' %}</div>
     <div><h2>{{ 'mom.follow_us' | t }}</h2><div class="mom-social-links"><a href="{{ section.settings.instagram | default: 'https://www.instagram.com/mindovermatter.wear/' }}" target="_blank" rel="noopener" aria-label="Instagram — @mindovermatter.wear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>{% if section.settings.tiktok != blank %}<a href="{{ section.settings.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v13a4 4 0 1 1-4-4m4-9c0 4 2 6 6 6"/></svg></a>{% endif %}</div></div>
+    <div class="mom-footer-offer"><button type="button" class="discount-teaser" data-mom-open="MomOffer" hidden>{% if request.locale.iso_code == 'en' %}Explore your discount{% else %}İndirimini keşfet{% endif %}<span aria-hidden="true">↗</span></button></div>
   </div>
   <div class="mom-footer-bottom">
     <small>© {{ 'now' | date: '%Y' }}, Mind Over Matter</small>
-    {% assign payment_types = 'amazon_payments,american_express,apple_pay,bancontact,diners_club,discover,ideal,master,paypal,shopify_pay,visa' | split: ',' %}
-    <ul class="mom-payment-list" role="list" aria-label="{{ 'mom.payment_methods' | t }}">{% for type in payment_types %}<li>{{ type | payment_type_svg_tag: class: 'mom-payment-icon' }}</li>{% endfor %}</ul>
+    {% if shop.enabled_payment_types.size > 0 %}
+      <ul class="mom-payment-list" role="list" aria-label="{{ 'mom.payment_methods' | t }}">{% for type in shop.enabled_payment_types %}<li>{{ type | payment_type_svg_tag: class: 'mom-payment-icon' }}</li>{% endfor %}</ul>
+    {% endif %}
     <nav aria-label="{{ 'mom.legal' | t }}">
       <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">{{ 'mom.returns_policy' | t }}</a>
       <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'mom.privacy_policy' | t }}</a>

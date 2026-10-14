@@ -1,10 +1,38 @@
 {% if section.settings.enabled and section.settings.code != blank %}
-{%- assign mom_discount_code_path = section.settings.code | replace: ' ', '%20' -%}
-{%- capture mom_discount_url -%}/discount/{{ mom_discount_code_path }}?redirect={{ routes.all_products_collection_url | url_encode }}{%- endcapture -%}
-<button class="discount-teaser" data-mom-open="MomOffer" hidden><strong>%{{ section.settings.amount }} İNDİRİM</strong></button><dialog id="MomOffer" class="discount-popup-layer mom-dialog" data-delay="{{ section.settings.delay | times: 1000 }}" data-code="{{ section.settings.code | escape }}" data-active-step="1" aria-labelledby="discount-title"><button class="discount-popup-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button><section class="discount-popup"><button class="discount-popup-close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button><div class="discount-popup-copy"><img class="discount-popup-logo" src="{{ 'mom-mind-over-matter-wordmark-black.png' | asset_url }}" width="210" height="66" alt="Mind Over Matter"><p class="discount-kicker">{{ 'mom.offer_kicker' | t }}</p><h2 id="discount-title">%{{ section.settings.amount }} İNDİRİM</h2>
-<div data-offer-step="1"><p class="discount-lead">{{ 'mom.offer_choose' | t }}</p><div class="discount-options"><button data-interest="tops">{{ 'mom.tops' | t }}</button><button data-interest="bottoms">{{ 'mom.bottoms' | t }}</button><button data-interest="both">{{ 'mom.both' | t }}</button></div></div>
-<div data-offer-step="2" hidden><p class="discount-lead">{{ 'mom.offer_email' | t }}</p>{% form 'customer', id: 'MomOfferForm', class: 'discount-email-form' %}<input type="hidden" name="contact[tags]" value="newsletter,discount-popup,drop01"><label for="MomOfferEmail">E-posta</label><input id="MomOfferEmail" name="contact[email]" type="email" autocomplete="email" required placeholder="{{ 'mom.email' | t }}"><button type="submit">{{ 'mom.claim' | t }}</button>{% if form.posted_successfully? %}<span data-offer-success hidden></span>{% endif %}{{ form.errors | default_errors }}{% endform %}<p class="discount-consent" hidden>{{ 'mom.consent' | t }} {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title | escape }}</a>{% endif %}</p></div>
-<div data-offer-step="3" hidden><p class="discount-lead">{{ 'mom.use_code' | t }}</p><button class="discount-code" data-copy><span>{{ section.settings.code | escape }}</span><small>{{ 'mom.copy_code' | t }}</small></button><a class="discount-shop" href="{{ mom_discount_url | strip }}">{{ 'mom.start_shopping' | t }}</a></div><button class="discount-decline" data-mom-close>{{ 'mom.decline' | t }}</button></div><div class="discount-popup-image" {% if section.settings.image != blank %}style="background-image:url({{ section.settings.image | image_url: width: 1000 }})"{% endif %} aria-hidden="true"></div></section></dialog>{% endif %}
+  {%- assign mom_discount_code_path = section.settings.code | url_encode -%}
+  {%- capture mom_discount_url -%}/discount/{{ mom_discount_code_path }}?redirect={{ routes.all_products_collection_url | url_encode }}{%- endcapture -%}
+  <dialog id="MomOffer" class="discount-popup-layer mom-dialog" data-delay="{{ section.settings.delay | times: 1000 }}" data-code="{{ section.settings.code | escape }}" data-auto-show="{% if request.page_type == 'index' %}true{% else %}false{% endif %}" data-active-step="2" aria-labelledby="discount-title">
+    <button type="button" class="discount-popup-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button>
+    <section class="discount-popup">
+      <button type="button" class="discount-popup-close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button>
+      <div class="discount-popup-copy">
+        <p class="mom-eyebrow">MIND OVER MATTER / DROP 001</p>
+        <h2 id="discount-title">%{{ section.settings.amount }} {% if request.locale.iso_code == 'en' %}OFF.{% else %}İNDİRİM.{% endif %}</h2>
+        <div data-offer-step="2">
+          <p class="discount-lead">{{ 'mom.offer_email' | t }}</p>
+          {% form 'customer', id: 'MomOfferForm', class: 'discount-email-form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter,discount-popup,drop01">
+            <label for="MomOfferEmail">{{ 'mom.email' | t }}</label>
+            <input id="MomOfferEmail" name="contact[email]" type="email" autocomplete="email" required>
+            <label class="discount-consent" for="MomOfferConsent">
+              <input id="MomOfferConsent" name="contact[accepts_marketing]" type="checkbox" value="true" required>
+              <span>{{ 'mom.consent' | t }} <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'mom.privacy_policy' | t }}</a></span>
+            </label>
+            <button type="submit">{{ 'mom.claim' | t }}<span aria-hidden="true">↗</span></button>
+            {% if form.posted_successfully? %}<span data-offer-success hidden></span>{% endif %}
+            {{ form.errors | default_errors }}
+          {% endform %}
+        </div>
+        <div data-offer-step="3" hidden>
+          <p class="discount-lead">{{ 'mom.use_code' | t }}</p>
+          <button type="button" class="discount-code" data-copy><span>{{ section.settings.code | escape }}</span><small>{{ 'mom.copy_code' | t }}</small></button>
+          <a class="discount-shop" href="{{ mom_discount_url | strip }}">{{ 'mom.start_shopping' | t }}</a>
+        </div>
+        <button type="button" class="discount-decline" data-mom-close>{{ 'mom.decline' | t }}</button>
+      </div>
+    </section>
+  </dialog>
+{% endif %}
 {% schema %}
 {
   "name": "MOM Popup",
@@ -41,7 +69,7 @@
       "min": 0,
       "max": 30,
       "step": 1,
-      "default": 6
+      "default": 20
     },
     {
       "type": "image_picker",

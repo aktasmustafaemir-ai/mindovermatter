@@ -8,7 +8,9 @@
     },
     "mom_popup": {
       "type": "mom-popup",
-      "settings": {}
+      "settings": {
+        "delay": 20
+      }
     }
   },
   "order": [

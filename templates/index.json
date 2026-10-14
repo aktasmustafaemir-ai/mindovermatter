@@ -3,8 +3,11 @@
     "mom_hero": {
       "type": "mom-hero",
       "settings": {
-        "heading": "DROP 01 YAYINDA",
-        "button": "01’İ KEŞFET"
+        "heading": "DROP 001.",
+        "button": "KOLEKSİYONU KEŞFET",
+        "button_en": "EXPLORE THE COLLECTION",
+        "description": "350 GSM pamuk. Oversize kalıp. İşlemeli detaylar.",
+        "description_en": "350 GSM cotton. Oversized fit. Embroidered details."
       }
     },
     "mom_drop": {
@@ -12,12 +15,14 @@
       "settings": {
         "collection": "all",
         "limit": 4,
-        "show_heading": false
+        "show_heading": true,
+        "heading": "DROP 001"
       }
     },
     "mom_editorial": {
       "type": "mom-editorial",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "mom_faq": {
       "type": "mom-faq",
@@ -89,11 +94,13 @@
       "block_order": [
         "drop",
         "all"
-      ]
+      ],
+      "disabled": true
     },
     "mom_social": {
       "type": "mom-social-gallery",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "mom_benefits": {
       "type": "mom-benefits",
@@ -139,16 +146,27 @@
         "collection": "all",
         "limit": 8,
         "show_heading": false
-      }
+      },
+      "disabled": true
+    },
+    "mom_craft": {
+      "type": "mom-craft",
+      "settings": {}
+    },
+    "mom_set": {
+      "type": "mom-set",
+      "settings": {}
     }
   },
   "order": [
     "mom_hero",
     "mom_drop",
+    "mom_craft",
+    "mom_set",
+    "mom_benefits",
     "mom_editorial",
     "mom_tabs",
     "mom_social",
-    "mom_benefits",
     "mom_more",
     "mom_faq",
     "mom_reviews"
