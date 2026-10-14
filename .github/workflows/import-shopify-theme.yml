@@ -1,0 +1,48 @@
+name: Import Shopify theme
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/import-shopify-theme.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify and extract local theme archive
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import pathlib
+          import zipfile
+          archive = pathlib.Path('theme-source-import.zip')
+          expected = '7578d0784f4de9ffad08dd45ace7891cbd88c37d802de1e889170620d553cded'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest() == expected, 'Archive checksum mismatch'
+          allowed = {'assets', 'blocks', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates'}
+          with zipfile.ZipFile(archive) as source:
+              files = [entry for entry in source.infolist() if not entry.is_dir()]
+              assert len(files) == 631, 'Unexpected file count'
+              for entry in files:
+                  path = pathlib.PurePosixPath(entry.filename)
+                  assert not path.is_absolute() and '..' not in path.parts
+                  assert path.parts[0] in allowed and len(path.parts) == 2
+              for entry in files:
+                  target = pathlib.Path(entry.filename)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(source.read(entry))
+          assert pathlib.Path('layout/theme.liquid').is_file()
+          print('Imported 631 theme files into Shopify theme directories')
+          PY
+      - name: Commit theme files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets blocks config layout locales sections snippets templates
+          if git diff --cached --quiet; then
+            echo 'Theme already imported'
+            exit 0
+          fi
+          git commit -m 'Import complete Shopify theme including Search Console support'
+          git push origin HEAD:main
