@@ -94,7 +94,7 @@
 {% endif %}
 {% if matching != blank %}<aside class="matching"><h2>{{ 'mom.complete_set' | t }}</h2><a href="{{ matching.url }}">{{ matching.featured_image | image_url: width: 600 | image_tag: loading: 'lazy' }}<div><h3>{{ matching.title | escape }}</h3><p>{% render 'mom-money', amount: matching.price %}</p><span>{{ 'mom.view_product' | t }}</span></div></a></aside>{% endif %}</div></section>
 
-<dialog id="MomSizeGuide" class="size-guide-modal mom-dialog" aria-labelledby="MomSizeTitle"><button class="size-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button><aside><header><h2 id="MomSizeTitle">{{ 'mom.size_guide' | t }}</h2><button data-mom-close aria-label="{{ 'actions.close' | t }}">×</button></header><div>{% assign chart = product.metafields.custom.size_chart.value | default: section.settings.size_chart %}{% if chart != blank %}{{ chart | image_url: width: 1200 | image_tag: class: 'guide-image' }}{% elsif section.settings.size_text != blank %}{{ section.settings.size_text }}{% else %}{% render 'mom-size-guide', product: product %}{% endif %}</div></aside></dialog>
+<dialog id="MomSizeGuide" class="size-guide-modal mom-dialog" aria-labelledby="MomSizeTitle"><button class="size-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button><aside><header><h2 id="MomSizeTitle">{{ 'mom.size_guide' | t }}</h2><button data-mom-close aria-label="{{ 'actions.close' | t }}">×</button></header><div>{% assign chart = product.metafields.custom.size_chart.value | default: section.settings.size_chart %}{% if chart != blank %}{{ chart | image_url: width: 1200 | image_tag: class: 'guide-image' }}{% elsif section.settings.size_text != blank %}{{ section.settings.size_text }}{% else %}{% render 'mom-size-guide', product: product, top_measurement_method: section.settings.top_measurement_method, bottom_measurement_method: section.settings.bottom_measurement_method %}{% endif %}</div></aside></dialog>
 
 {% assign review_count = 0 %}{% assign review_total = 0 %}{% for block in section.blocks %}{% if block.type == 'review' and block.settings.product.id == product.id and block.settings.author != blank and block.settings.text != blank %}{% assign review_count = review_count | plus: 1 %}{% assign review_total = review_total | plus: block.settings.rating %}{% endif %}{% endfor %}
 {% if review_count > 0 %}
@@ -134,6 +134,30 @@
       "type": "richtext",
       "id": "size_text",
       "label": "Beden açıklaması"
+    },
+    {
+      "type": "select",
+      "id": "top_measurement_method",
+      "label": "Üst giyim göğüs ölçüm şekli",
+      "options": [
+        { "value": "unconfirmed", "label": "Henüz doğrulanmadı" },
+        { "value": "flat", "label": "Düz zeminde tek taraf eni" },
+        { "value": "circumference", "label": "Toplam çevre" }
+      ],
+      "default": "unconfirmed",
+      "info": "Üretim ölçüleriyle doğrulayın. Seçim, kılavuzdaki ölçme açıklamasını belirler; sayıların kendisini değiştirmez."
+    },
+    {
+      "type": "select",
+      "id": "bottom_measurement_method",
+      "label": "Alt giyim bel ölçüm şekli",
+      "options": [
+        { "value": "unconfirmed", "label": "Henüz doğrulanmadı" },
+        { "value": "flat", "label": "Düz zeminde tek taraf eni" },
+        { "value": "circumference", "label": "Toplam çevre" }
+      ],
+      "default": "unconfirmed",
+      "info": "Üretim ölçüleriyle doğrulayın. Seçim, kılavuzdaki ölçme açıklamasını belirler; sayıların kendisini değiştirmez."
     },
     {
       "type": "richtext",

@@ -1,3 +1,9 @@
+{% doc %}
+  Displays measurements and size-selection guidance for the current product.
+  @param {product} product - The current product.
+  @param {string} top_measurement_method - Confirmed chest measurement method.
+  @param {string} bottom_measurement_method - Confirmed waist measurement method.
+{% enddoc %}
 {% liquid
   assign product_name = product.title | downcase
   assign product_type_name = product.type | downcase
@@ -5,10 +11,63 @@
   if product_name contains 'eşofman' or product_name contains 'sweatpant' or product_name contains 'pant' or product_type_name contains 'eşofman' or product_type_name contains 'sweatpant' or product_type_name contains 'pant'
     assign is_bottom = true
   endif
+  assign measurement_method = top_measurement_method
+  if is_bottom
+    assign measurement_method = bottom_measurement_method
+  endif
 %}
 
 <div class="mom-metric-size-guide">
   <p class="mom-size-unit">{{ 'mom.size_metric_note' | t }}</p>
+
+  <div class="mom-size-intro">
+    <h3>{% if request.locale.iso_code == 'en' %}Choosing your size{% else %}Bedenini seçerken{% endif %}</h3>
+    <p>{% if request.locale.iso_code == 'en' %}This product has an oversized fit. The height ranges below are general guidance; your proportions and preferred fit also affect your choice.{% else %}Bu ürün oversize kalıptır. Aşağıdaki boy aralıkları genel bir öneridir; vücut yapın ve tercih ettiğin bolluk da beden seçimini etkiler.{% endif %}</p>
+    {% if measurement_method == 'flat' %}
+      <p class="mom-size-method">{% if request.locale.iso_code == 'en' %}A is the width measured with the garment laid flat, not the circumference. Compare it with the flat width of a similar garment you own.{% else %}A ölçüsü, ürün düz zemindeyken ölçülen tek taraf enidir; çevre ölçüsü değildir. Sana iyi olan benzer bir kıyafetin düz zemindeki eniyle karşılaştır.{% endif %}</p>
+    {% elsif measurement_method == 'circumference' %}
+      <p class="mom-size-method">{% if request.locale.iso_code == 'en' %}A is the total circumference. Compare it with the circumference of a similar garment you own, not its flat width.{% else %}A ölçüsü toplam çevreyi gösterir. Sana iyi olan benzer bir kıyafetin çevresiyle karşılaştır; tek taraf eniyle karşılaştırma.{% endif %}</p>
+    {% endif %}
+    <a class="mom-size-help" href="{{ pages.contact.url | default: '/pages/contact' }}">{% if request.locale.iso_code == 'en' %}Unsure about a measurement or between sizes? Ask us.{% else %}Ölçüm şekli veya iki beden arasında kararsız mısın? Bize danış.{% endif %}</a>
+  </div>
+
+  <div class="mom-size-table-wrap" tabindex="0" role="region" aria-label="{{ 'mom.size_guide' | t }}">
+    <table>
+      <caption>{% if request.locale.iso_code == 'en' %}Product measurements (cm){% else %}Ürün ölçüleri (cm){% endif %}</caption>
+      <thead>
+        <tr>
+          <th scope="col">{{ 'mom.size_size' | t }}</th>
+          {% if is_bottom %}
+            <th scope="col">{{ 'mom.size_waist' | t }} (A)</th>
+            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
+            <th scope="col">{{ 'mom.size_inseam' | t }} (C)</th>
+          {% else %}
+            <th scope="col">{{ 'mom.size_chest' | t }} (A)</th>
+            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
+            <th scope="col">{{ 'mom.size_sleeve' | t }} (C)</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% if is_bottom %}
+          <tr><th scope="row">S</th><td>52 cm</td><td>99 cm</td><td>69 cm</td></tr>
+          <tr><th scope="row">M</th><td>53 cm</td><td>102,5 cm</td><td>72 cm</td></tr>
+          <tr><th scope="row">L</th><td>54 cm</td><td>106 cm</td><td>75 cm</td></tr>
+          <tr><th scope="row">XL</th><td>55 cm</td><td>109,5 cm</td><td>78 cm</td></tr>
+        {% else %}
+          <tr><th scope="row">S</th><td>62,5 cm</td><td>63 cm</td><td>44,5 cm</td></tr>
+          <tr><th scope="row">M</th><td>65 cm</td><td>65 cm</td><td>45,5 cm</td></tr>
+          <tr><th scope="row">L</th><td>67,5 cm</td><td>68 cm</td><td>46,5 cm</td></tr>
+          <tr><th scope="row">XL</th><td>70 cm</td><td>71 cm</td><td>47,5 cm</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <ul class="mom-size-key">
+    <li><strong>A</strong> {% if is_bottom %}{{ 'mom.size_waist' | t }}{% else %}{{ 'mom.size_chest' | t }}{% endif %}</li>
+    <li><strong>B</strong> {{ 'mom.size_length' | t }}</li>
+    <li><strong>C</strong> {% if is_bottom %}{{ 'mom.size_inseam' | t }}{% else %}{{ 'mom.size_sleeve' | t }}{% endif %}</li>
+  </ul>
 
   <div class="mom-size-height-list" aria-label="{{ 'mom.size_recommended_heights' | t }}">
     <strong>{{ 'mom.size_recommended_heights' | t }}</strong>
@@ -52,35 +111,4 @@
     <figcaption>{{ 'mom.how_to_measure' | t }}</figcaption>
   </figure>
 
-  <div class="mom-size-table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">{{ 'mom.size_size' | t }}</th>
-          {% if is_bottom %}
-            <th scope="col">{{ 'mom.size_waist' | t }} (A)</th>
-            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
-            <th scope="col">{{ 'mom.size_inseam' | t }} (C)</th>
-          {% else %}
-            <th scope="col">{{ 'mom.size_chest' | t }} (A)</th>
-            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
-            <th scope="col">{{ 'mom.size_sleeve' | t }} (C)</th>
-          {% endif %}
-        </tr>
-      </thead>
-      <tbody>
-        {% if is_bottom %}
-          <tr><th scope="row">S</th><td>52 cm</td><td>99 cm</td><td>69 cm</td></tr>
-          <tr><th scope="row">M</th><td>53 cm</td><td>102,5 cm</td><td>72 cm</td></tr>
-          <tr><th scope="row">L</th><td>54 cm</td><td>106 cm</td><td>75 cm</td></tr>
-          <tr><th scope="row">XL</th><td>55 cm</td><td>109,5 cm</td><td>78 cm</td></tr>
-        {% else %}
-          <tr><th scope="row">S</th><td>62,5 cm</td><td>63 cm</td><td>44,5 cm</td></tr>
-          <tr><th scope="row">M</th><td>65 cm</td><td>65 cm</td><td>45,5 cm</td></tr>
-          <tr><th scope="row">L</th><td>67,5 cm</td><td>68 cm</td><td>46,5 cm</td></tr>
-          <tr><th scope="row">XL</th><td>70 cm</td><td>71 cm</td><td>47,5 cm</td></tr>
-        {% endif %}
-      </tbody>
-    </table>
-  </div>
 </div>

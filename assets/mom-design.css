@@ -82,6 +82,19 @@ html, body,
 .mom-product-help { margin-top: 20px; padding: 18px 0; border-top: 1px solid var(--mom-border); border-bottom: 1px solid var(--mom-border); display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
 .mom-product-help .shipping-note { width: 100%; font-size: 12px; font-weight: 700; line-height: 1.5; margin: 0; letter-spacing: .025em; }
 .mom-product-help button, .mom-product-help a { display: inline-flex; gap: 12px; align-items: center; background: none; border: 0; padding: 0; font-size: 13px; min-height: 32px; text-decoration: underline; text-underline-offset: 4px; }
+.mom-size-intro h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.4; }
+.mom-size-intro p { margin: 0 0 12px; font-size: 14px; line-height: 1.65; }
+.mom-size-help { display: inline-block; font-size: 13px; line-height: 1.6; text-decoration: underline; text-underline-offset: 3px; }
+.mom-metric-size-guide table { width: 100%; min-width: 0; table-layout: fixed; }
+.mom-metric-size-guide caption { text-align: left; margin-bottom: 12px; font-size: 14px; font-weight: 700; }
+.mom-metric-size-guide th, .mom-metric-size-guide td { padding: 12px 4px; overflow-wrap: anywhere; }
+.mom-metric-size-guide thead th { font-size: 10px; line-height: 1.5; letter-spacing: 0; }
+.mom-metric-size-guide tbody th, .mom-metric-size-guide td { font-size: 12px; line-height: 1.5; }
+.mom-metric-size-guide th:first-child { width: 16%; }
+.mom-size-table-wrap:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+.mom-size-key { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.mom-size-key li { display: flex; gap: 12px; font-size: 13px; line-height: 1.5; }
+.mom-size-key strong { width: 16px; }
 .product-collapsibles { margin-top: 24px; }
 .product-collapsibles summary { font-size: 13px; line-height: 1.5; padding: 20px 0; letter-spacing: .025em; }
 .product-collapsibles .rte { font-size: 15px; line-height: 1.7; }
