@@ -1,0 +1,14 @@
+{%- liquid
+  assign contact_address = settings.mom_contact_address | default: 'İTÜ Ayazağa Kampüsü, Sarıyer / İstanbul'
+  assign contact_email = settings.mom_contact_email | default: 'momsportswear@gmail.com' | strip
+  assign contact_phone = settings.mom_contact_phone | default: '+90 545 916 38 38' | strip
+  assign phone_href = contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-'
+-%}
+<address class="mom-contact-info">
+  <p class="mom-contact-info__brand">Mind Over Matter</p>
+  <p>{{ contact_address | escape | newline_to_br }}</p>
+  <p><a href="mailto:{{ contact_email | escape }}">{{ contact_email | escape }}</a></p>
+  {%- if contact_phone != blank -%}
+    <p><a href="tel:{{ phone_href | escape }}">{{ contact_phone | escape }}</a></p>
+  {%- endif -%}
+</address>

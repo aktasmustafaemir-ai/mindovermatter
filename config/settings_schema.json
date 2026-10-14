@@ -8,6 +8,31 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "İletişim bilgileri",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "mom_contact_address",
+        "label": "Açık adres",
+        "default": "İTÜ Ayazağa Kampüsü, Sarıyer / İstanbul",
+        "info": "Gerçek işletme adresinizi bina/ofis, mahalle, ilçe, il ve posta kodu ile tamamlayın."
+      },
+      {
+        "type": "text",
+        "id": "mom_contact_email",
+        "label": "İletişim e-postası",
+        "default": "momsportswear@gmail.com"
+      },
+      {
+        "type": "text",
+        "id": "mom_contact_phone",
+        "label": "Telefon",
+        "default": "+90 545 916 38 38",
+        "info": "Ülke kodu ile yazın. Örnek: +90 5XX XXX XX XX."
+      }
+    ]
+  },
+  {
     "name": "Google Search Console",
     "settings": [
       {
