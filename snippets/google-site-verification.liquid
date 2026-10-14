@@ -1,0 +1,4 @@
+{%- assign google_verification_code = settings.google_site_verification | strip -%}
+{%- if google_verification_code != blank -%}
+  <meta name="google-site-verification" content="{{ google_verification_code | escape }}">
+{%- endif -%}

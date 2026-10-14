@@ -1,0 +1,30 @@
+<div class="mom-announcement"><span>{% if request.locale.iso_code == 'en' %}{{ section.settings.text_en | escape }}{% else %}{{ section.settings.text | escape }}{% endif %}</span><span> MIND OVER MATTER — 001 </span></div>
+{% schema %}
+{
+  "name": "MOM • Duyuru",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Metin — Türkçe",
+      "default": "KENDİ YOLUNU ÇİZ."
+    },
+    {
+      "type": "text",
+      "id": "text_en",
+      "label": "Metin — İngilizce",
+      "default": "MAKE YOUR OWN WAY."
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM • Duyuru"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,47 @@
+MIND OVER MATTER — Horizon uyarlaması / 28 Eylül 2026
+
+ZIP dosyasını Shopify > Online Mağaza > Temalar bölümünden taslak tema olarak yükleyin. Gerçek mağaza önizlemesindeki kontroller tamamlanmadan yayımlamayın.
+
+Önceki MIND OVER MATTER prototipinin yazı tipleri, ana görselleri ve stil dosyası taşındı. Özel üst menü, mobil menü, ana sayfa, ürün, koleksiyon, arama, iletişim, sepet sayfası, sepet çekmecesi ve üç adımlı indirim pop-up'ı eklendi. Ürün ve sepet arayüzleri Shopify verilerini ve AJAX sepet altyapısını kullanır.
+
+Ürünler, fiyatlar, stoklar, koleksiyonlar ve ürün fotoğrafları ZIP ile aktarılmaz; mevcut mağaza verileri kullanılır. Ana sayfa ürün koleksiyonunu tema düzenleyicisinden seçin. Menü, iletişim sayfası, teslimat/iade metinleri ve mağaza politikalarını mağazanıza göre düzenleyin. İletişim sayfanıza page.contact şablonunu atayın.
+
+İndirim pop-up'ının varsayılan kodu MIND10, gösterilen oranı yüzde 10'dur. Bu kodu Shopify İndirimler bölümünde ayrıca oluşturun ve koşullarını belirleyin; tema kod oluşturmaz. E-posta adımı Shopify customer formudur. Başarılı kayıt yanıtında kupon adımı gösterilir. Gerçek kayıt, varsa doğrulama ekranı ve indirim uygunluğu mağazada test edilmelidir.
+
+Beden tablosu ürün bölümünün ayarından veya product.metafields.custom.size_chart alanından gelir. Tamamlayıcı ürün için ürün bölümündeki ayarı/metafield bağlantısını yapılandırın. Yorum alanı düzenlenebilir ve başlangıçta boştur; yalnızca gerçek müşteri yorumlarını ekleyin. İletişim görseli düzenleyiciden değiştirilebilir.
+
+TR ve EN metinleri hazırdır. Dil seçimi için bu dilleri Shopify'da yayımlayın. Ödeme simgeleri etkin mağaza ödeme yöntemlerinden gelir. Müşteri hesabı ve ödeme ekranı Shopify tarafından yönetilir; tema ZIP'i bu ekranların birebir kopyasını sağlamaz.
+
+Sepet sayacı her açılışta 10 dakikadan başlar; stok ayırmaz ve ödeme süresini sınırlamaz.
+
+Yerel doğrulama Shopify sunucusunun yerine geçmez. Testler örnek ürünler ve taklit sepet yanıtlarıyla yürütülür. Gerçek mağazada ürün/varyant, stok, indirim, e-posta kaydı, iletişim, dil, sepet ve ödeme yönlendirmesi ayrıca kontrol edilmelidir. Bu paket tüm mağazanın birebir tamamlandığı anlamına gelmez; gerçek ürün görselleri, içerikler ve platform ekranlarıyla son eşleştirme beklemektedir.
+
+CANLI REFERANS DETAY GÜNCELLEMESİ — 28/29 Eylül 2026
+
+Bu sürüm, wantsandneeds.com'un 28 Eylül'de gözlemlenen canlı düzenini esas alır. Önceki prototipteki ana sayfa sırası değiştirildi: ürün ızgarası, büyük kapak, üç koleksiyon kutusu, editorial görsel, iki sekmeli ürün şeridi, sosyal görseller, üç bilgi alanı, ikinci ürün ızgarası ve dört sütunlu alt bölüm. SSS iletişim şablonuna taşındı; ana sayfadaki önceki SSS ve yorum bölümleri düzenleyicide devre dışı bırakıldı.
+
+Renk ve beden ayrı seçenek gruplarıdır; fiyat, görsel, seçili varyant, stok ve miktar sınırı seçime göre güncellenir. Görsel büyütme, mobil görsel kaydırma, klavyeyle ürün sekmesi seçimi ve başa dön düğmesi eklendi. Shopify'ın gerçek hızlandırılmış ödeme düğmesi ve ürün sayfasında uygulama bloğu desteği vardır.
+
+Sepette sipariş notu Shopify cart/update.js üzerinden kaydedilir. Tamamlayıcı ürün metafield/ayar üzerinden seçilir. Ücretsiz kargo göstergesi varsayılan kapalıdır: MOM Cart bölümünde gerçek kargo eşiğini girerek açabilirsiniz. Tema kendi başına ücretsiz kargo veya indirim tanımlamaz.
+
+Pop-up üç tercih içerir: üst giyim, alt giyim, her ikisi. Görünüm, beyaz iki sütunlu tasarıma yaklaştırıldı; dar ekranda tek sütundur. Gerçek üçüncü adım ancak Shopify başarılı müşteri formu yanıtı verince gösterilir. E-posta formunda başarısızlık olursa hata adımı korunur.
+
+ÖNİZLEMEDE TAMAMLANACAK MAĞAZA VERİLERİ
+- Üst/alt giyim kutuları için tops ve bottoms koleksiyonlarını oluşturun veya mevcut koleksiyonları bölüm ayarından seçin. İlk drop ve diğer ürün şeritleri varsayılan all koleksiyonudur; gerçek koleksiyonlara göre seçin.
+- Contact sayfasını oluşturup page.contact şablonuna bağlayın. Kargo/iade politikalarını ve gerçek teslimat vaatlerini doldurun.
+- Instagram ve TikTok adreslerini alt bölüm ayarından girin. Sosyal görselleri kendi bloklarınızla değiştirebilirsiniz. Kendi ürün resimleriniz mağazanın ürün kayıtlarından gelir.
+- Beden tablosu ve eşleştirilen ürünleri ekleyin. Gerçek yorumlar için uygulama bloğu bağlayın; referans mağazanın müşteri yorumları taşınmadı.
+- Shopify müşteri gizliliği ayarlarından gerçek çerez banner'ını yapılandırın. Temada yalnızca stil uyumu vardır; sahte bir onay sistemi eklenmedi.
+- MIND10 kodunu, gerçek ödeme yöntemlerini ve dilleri Shopify'da etkinleştirin.
+
+Görseller: Kapak/editorial, iletişim ve dört sosyal alan görseli canlı referansın herkese açık medya dosyalarından bu taslak temaya dahil edilmiştir. Kaynak ürün kayıtları, stokları, fiyatları ve yorumları aktarılmamıştır. MIND OVER MATTER logosu ve TR/EN seçimi korunmuştur.
+
+Bu paket gerçek Shopify mağazasında test edilmemiştir. Yerel testlerde Shopify Liquid benzetimi ve taklit sepet yanıtları kullanılır. Hesap, checkout, uygulama yorumları, çerez onayı ve doğrulama ekranları mağaza/platform ayarlarına bağlıdır. Piksel düzeyinde birebir tamamlanma iddiası yoktur; son eşleştirme gerçek mağaza önizlemesiyle yapılmalıdır.
+
+İNCE DETAY GÜNCELLEMESİ — 30 Eylül 2026
+
+Referansta ölçülen başlık, düğme, sekme ve ok boyutları, harf aralıkları ve boşluklar düzeltildi. Pop-up'ın ikinci adımında soru gizlenir; e-posta alanı, fotoğraf ve içerik hizası güncellendi. Arama sayfasına Shopify verilerinden sonuç türü, sıralama, uygun filtreler ve arama temizleme eklendi. Politika sayfalarının içerik genişliği ve başlık boşlukları düzenlendi.
+
+Tam sepet sayfasında miktar değişimi toplamı ve sepet içeriğini AJAX ile yeniler; sipariş notu korunur. Sepet notunu Escape ile kapatmak sepeti açık bırakır. Ürün ilk açıldığında varyantın stok durumu uygulanır. Ürün şeridindeki yön okları kaydırma sınırlarında pasifleşir.
+
+1440 ve 390 piksel genişliklerde yedi sayfa türü ve etkileşim akışları yerel testten geçti; sayfa taşması, kırık görsel veya JavaScript hatası saptanmadı. Yerel örneklerle miktar güncelleme, sepet boşaltma, stok hatası, varyant seçimi, pop-up adımları ve sepet sayacı doğrulandı. Gerçek Shopify önizlemesi ve canlı form/ödeme kontrolü hâlâ gereklidir.

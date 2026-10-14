@@ -1,0 +1,39 @@
+{% assign source = section.settings.collection | default: collections.all %}<section class="mom-catalog-strip">{% if section.settings.show_heading %}<div class="section-heading"><h2>{{ section.settings.heading | escape }}</h2><a href="{{ source.url }}">{{ 'mom.view_all' | t }}</a></div>{% endif %}<div class="mom-live-grid">{% for product in source.products limit: section.settings.limit %}{% render 'mom-card', product: product %}{% else %}<p>{{ 'mom.coming_soon' | t }}</p>{% endfor %}</div></section>
+{% schema %}
+{
+  "name": "MOM • Drop",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Koleksiyon"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Başlık",
+      "default": "001"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Başlığı göster",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Ürün sayısı",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM • Drop"
+    }
+  ]
+}
+{% endschema %}

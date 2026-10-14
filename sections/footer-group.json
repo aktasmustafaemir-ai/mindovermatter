@@ -1,0 +1,18 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "mom_footer": {
+      "type": "mom-footer",
+      "settings": {}
+    },
+    "mom_popup": {
+      "type": "mom-popup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "mom_footer",
+    "mom_popup"
+  ]
+}

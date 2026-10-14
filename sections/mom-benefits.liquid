@@ -1,0 +1,44 @@
+<section class="mom-benefits">{% for block in section.blocks %}<div {{ block.shopify_attributes }}><h3>{% if request.locale.iso_code == 'en' %}{{ block.settings.title_en | escape }}{% else %}{{ block.settings.title | escape }}{% endif %}</h3><p>{% if request.locale.iso_code == 'en' %}{{ block.settings.text_en | escape }}{% else %}{{ block.settings.text | escape }}{% endif %}</p></div>{% endfor %}</section>
+{% schema %}
+{
+  "name": "MOM • Benefits",
+  "settings": [],
+  "presets": [
+    {
+      "name": "MOM • Benefits"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Bilgi",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Başlık",
+          "default": "5 İŞ GÜNÜ İÇİNDE KARGODA"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Açıklama",
+          "default": "TÜRKİYE TESLİMATI 1–4 İŞ GÜNÜ"
+        },
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "İngilizce başlık",
+          "default": "SHIPS WITHIN 5 BUSINESS DAYS"
+        },
+        {
+          "type": "text",
+          "id": "text_en",
+          "label": "İngilizce açıklama",
+          "default": "TÜRKİYE DELIVERY 1–4 BUSINESS DAYS"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

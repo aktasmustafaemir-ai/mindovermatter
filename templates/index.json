@@ -1,0 +1,156 @@
+{
+  "sections": {
+    "mom_hero": {
+      "type": "mom-hero",
+      "settings": {
+        "heading": "DROP 01 YAYINDA",
+        "button": "01’İ KEŞFET"
+      }
+    },
+    "mom_drop": {
+      "type": "mom-drop",
+      "settings": {
+        "collection": "all",
+        "limit": 4,
+        "show_heading": false
+      }
+    },
+    "mom_editorial": {
+      "type": "mom-editorial",
+      "settings": {}
+    },
+    "mom_faq": {
+      "type": "mom-faq",
+      "settings": {},
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "BEDENİMİ NASIL SEÇMELİYİM?",
+            "answer": "<p>Ürün sayfasındaki beden seçeneklerini ve ürün açıklamasını inceleyebilirsin.</p>",
+            "question_en": "HOW DO I CHOOSE MY SIZE?",
+            "answer_en": "<p>Check the size options and description on each product page.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "KARGO BİLGİLERİNİ NEREDE BULABİLİRİM?",
+            "answer": "<p>Teslimat seçenekleri ve ücretleri ödeme adımında görüntülenir. Ayrıntılar için kargo politikamızı inceleyebilirsin.</p>",
+            "question_en": "WHERE CAN I FIND SHIPPING INFORMATION?",
+            "answer_en": "<p>Delivery options and costs are shown at checkout. See our shipping policy for details.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "İADE VE DEĞİŞİM NASIL YAPILIR?",
+            "answer": "<p>Güncel koşullar ve başvuru adımları için mağazamızın iade politikasını inceleyebilirsin.</p>",
+            "question_en": "HOW DO RETURNS WORK?",
+            "answer_en": "<p>See our store’s return policy for current conditions and instructions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2"
+      ],
+      "disabled": true
+    },
+    "mom_reviews": {
+      "type": "mom-reviews",
+      "settings": {},
+      "blocks": {},
+      "block_order": [],
+      "disabled": true
+    },
+    "mom_tabs": {
+      "type": "mom-featured-tabs",
+      "settings": {},
+      "blocks": {
+        "drop": {
+          "type": "collection",
+          "settings": {
+            "title": "001",
+            "title_en": "001",
+            "collection": "all"
+          }
+        },
+        "all": {
+          "type": "collection",
+          "settings": {
+            "title": "TÜM ÜRÜNLER",
+            "title_en": "ALL PRODUCTS",
+            "collection": "all"
+          }
+        }
+      },
+      "block_order": [
+        "drop",
+        "all"
+      ]
+    },
+    "mom_social": {
+      "type": "mom-social-gallery",
+      "settings": {}
+    },
+    "mom_benefits": {
+      "type": "mom-benefits",
+      "settings": {},
+      "blocks": {
+        "benefit0": {
+          "type": "benefit",
+          "settings": {
+            "title": "5 İŞ GÜNÜ İÇİNDE KARGODA",
+            "text": "TÜRKİYE TESLİMATI 1–4 İŞ GÜNÜ",
+            "title_en": "SHIPS WITHIN 5 BUSINESS DAYS",
+            "text_en": "TÜRKİYE DELIVERY 1–4 BUSINESS DAYS"
+          }
+        },
+        "benefit1": {
+          "type": "benefit",
+          "settings": {
+            "title": "ÜCRETSİZ KARGO",
+            "text": "3.000 TL ÜZERİ SİPARİŞLERDE",
+            "title_en": "FREE TÜRKİYE SHIPPING",
+            "text_en": "ON ORDERS OVER ₺3,000"
+          }
+        },
+        "benefit2": {
+          "type": "benefit",
+          "settings": {
+            "title": "14 GÜN İÇİNDE İADE",
+            "text": "TESLİMATTAN İTİBAREN · TÜRKİYE SİPARİŞLERİ",
+            "title_en": "14-DAY RETURNS",
+            "text_en": "FROM DELIVERY · TÜRKİYE ORDERS"
+          }
+        }
+      },
+      "block_order": [
+        "benefit0",
+        "benefit1",
+        "benefit2"
+      ]
+    },
+    "mom_more": {
+      "type": "mom-drop",
+      "settings": {
+        "collection": "all",
+        "limit": 8,
+        "show_heading": false
+      }
+    }
+  },
+  "order": [
+    "mom_hero",
+    "mom_drop",
+    "mom_editorial",
+    "mom_tabs",
+    "mom_social",
+    "mom_benefits",
+    "mom_more",
+    "mom_faq",
+    "mom_reviews"
+  ]
+}

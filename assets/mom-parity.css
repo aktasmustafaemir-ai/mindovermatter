@@ -1,0 +1,895 @@
+/*
+ * Final visual parity layer.
+ * Kept separate so the original theme remains easy to audit and update.
+ */
+:root {
+  --mom-page: #f6f6f4;
+  --mom-black: #000;
+  --mom-line: #dededb;
+}
+
+html,
+body {
+  background: var(--mom-page);
+  color: var(--mom-black);
+  font-family: Karla, Arial, sans-serif;
+}
+
+#header-group {
+  top: -32px;
+}
+
+.announcement {
+  height: 32px;
+  min-height: 32px;
+  padding: 0 20px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.18em;
+}
+
+.site-header {
+  height: 61px;
+  min-height: 61px;
+  padding: 0 60px;
+  border: 0;
+  background: var(--mom-page);
+}
+
+.brand {
+  width: 75px;
+  height: 58px;
+  overflow: visible;
+}
+
+.brand img {
+  width: 75px;
+  height: 55px;
+  object-fit: contain;
+  transform: scaleX(-1);
+}
+
+.desktop-nav {
+  align-self: stretch;
+  gap: 30px;
+}
+
+.desktop-nav a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.07em;
+}
+
+.header-actions {
+  gap: 16px;
+}
+
+.header-actions a,
+.header-actions button {
+  width: 30px;
+  height: 30px;
+}
+
+.header-actions .lang-switch {
+  gap: 3px;
+}
+
+.header-actions .lang-switch button {
+  width: auto;
+  min-width: 24px;
+  padding: 0 2px;
+  font-size: 10px;
+}
+
+.mom-catalog-strip {
+  padding: 40px;
+}
+
+.mom-live-grid,
+.collection-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 38px 18px;
+}
+
+.mom-live-card .mom-card-media,
+.collection-grid .mom-card-media {
+  aspect-ratio: 3 / 4;
+  background: #ededeb;
+}
+
+.mom-live-card .mom-card-media img {
+  object-fit: cover;
+}
+
+.mom-live-card:hover .mom-card-media .primary-image {
+  opacity: 0;
+}
+
+.mom-live-card:hover .mom-card-media .hover-image {
+  opacity: 1;
+}
+
+.mom-live-card .mom-card-copy {
+  min-height: 0;
+  padding-top: 10px;
+  overflow: visible;
+  aspect-ratio: auto;
+  background: transparent;
+}
+
+/* The legacy collection selector targets every direct div in a card. The
+   product copy is not media and must never inherit the 2:3 image ratio. */
+.collection-card > .mom-card-copy {
+  min-height: 0;
+  overflow: visible;
+  aspect-ratio: auto;
+  background: transparent;
+}
+
+.mom-live-card h3,
+.mom-live-card .mom-card-copy p {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.mom-live-card h3 {
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+
+.mom-live-card .mom-card-copy p {
+  font-weight: 400;
+}
+
+.hero {
+  height: 760px;
+  min-height: 0;
+}
+
+.hero-shade {
+  background: rgba(0, 0, 0, 0.17);
+}
+
+.hero-copy {
+  top: 50%;
+  width: min(780px, calc(100% - 40px));
+}
+
+.hero h1 {
+  font-size: clamp(64px, 6.75vw, 92px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.hero-cta {
+  width: 210px;
+  min-width: 210px;
+  height: 56px;
+  min-height: 56px;
+  margin-top: 26px;
+  padding: 14px 26px;
+  border: 1px solid #fff;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.14em;
+}
+
+.hero-cta:hover {
+  transform: none;
+}
+
+.mom-categories {
+  padding: 42px 40px 40px;
+}
+
+.mom-categories h2,
+.mom-social-gallery h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.mom-categories > div {
+  gap: 10px;
+}
+
+.mom-categories a {
+  aspect-ratio: 4 / 5;
+}
+
+.mom-categories h3 {
+  bottom: 18px;
+  font-size: 20px;
+}
+
+.editorial {
+  height: 700px;
+}
+
+.editorial .mom-editorial-copy h2 {
+  position: static;
+  inset: auto;
+  width: 100%;
+  margin-bottom: 18px;
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-align: center;
+  white-space: normal;
+  transform: none;
+}
+
+.mom-editorial-copy p {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.mom-featured-tabs {
+  padding: 40px 0;
+}
+
+.mom-featured-tabs > header {
+  padding: 0 40px 20px;
+}
+
+.mom-featured-tabs [role="tab"] {
+  padding: 4px 0;
+  font-size: 26px;
+  line-height: 1.6;
+}
+
+.mom-feature-track {
+  gap: 18px;
+  padding: 0 40px;
+}
+
+.mom-feature-track > .mom-live-card {
+  flex-basis: calc((100% - 54px) / 4);
+}
+
+.mom-view-all {
+  height: 52px;
+  min-width: 190px;
+  padding: 14px 34px;
+  border: 1px solid #000;
+  border-radius: 0;
+  font-size: 12px;
+  line-height: 19px;
+  letter-spacing: 0.18em;
+}
+
+.mom-social-gallery {
+  padding: 42px 40px;
+  background: #fff;
+}
+
+.mom-social-gallery h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mom-social-gallery > div {
+  gap: 6px;
+}
+
+.mom-social-gallery > div > a,
+.mom-social-gallery > div > figure {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #eee;
+}
+
+.mom-social-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.mom-social-gallery a:hover img {
+  transform: scale(1.025);
+}
+
+.mom-benefits {
+  padding: 30px 40px;
+  border-color: #000;
+}
+
+.product-page {
+  max-width: none;
+  grid-template-columns: minmax(0, 56%) minmax(0, 1fr);
+  gap: 72px;
+  padding: 24px 40px 80px;
+}
+
+.product-main-media {
+  margin: 0 6%;
+}
+
+.product-main-media img {
+  aspect-ratio: 3 / 4;
+}
+
+.product-detail {
+  position: sticky;
+  top: 92px;
+  align-self: start;
+  padding: 0 0 0 4px;
+}
+
+.product-detail h1 {
+  margin-bottom: 8px;
+  font-size: 26px;
+  line-height: 1.08;
+}
+
+.detail-price {
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.add-to-cart {
+  height: 62px;
+  padding: 0 24px;
+  border-radius: 0;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+.mom-buy-actions {
+  width: 100%;
+}
+
+.mom-buy-actions .add-to-cart {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.mom-dynamic-checkout {
+  width: 100%;
+  margin-top: 10px;
+  --shopify-accelerated-checkout-button-block-size: 56px;
+  --shopify-accelerated-checkout-button-border-radius: 0px;
+  --shopify-accelerated-checkout-button-box-shadow: none;
+}
+
+.mom-dynamic-checkout[hidden] {
+  display: none !important;
+}
+
+.mom-dynamic-checkout .shopify-payment-button,
+.mom-dynamic-checkout .shopify-payment-button__button,
+.mom-dynamic-checkout shopify-accelerated-checkout {
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.mom-dynamic-checkout .shopify-payment-button__button--unbranded {
+  min-height: 56px !important;
+  padding: 0 24px !important;
+  border: 1px solid #111 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #111 !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}
+
+.mom-dynamic-checkout .shopify-payment-button__button--unbranded:hover {
+  background: #efefec !important;
+}
+
+.mom-inline-size-link {
+  margin: 8px 0 2px;
+  padding: 0 0 3px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#MomCart {
+  width: min(450px, 94vw);
+  padding: 0 30px 30px;
+}
+
+#MomCart::backdrop {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.cart-head {
+  min-height: 80px;
+  padding: 30px 0 20px;
+}
+
+.cart-head h2 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.empty-cart {
+  min-height: calc(100dvh - 120px);
+  padding: 40px 15px 90px;
+  justify-content: center;
+}
+
+.empty-cart h3 {
+  font-size: 18px;
+}
+
+.empty-cart a {
+  min-width: 210px;
+  min-height: 50px;
+  border-radius: 0;
+}
+
+.cart-checkout {
+  height: 50px;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.discount-popup {
+  width: min(900px, calc(100vw - 32px));
+  min-height: 700px;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 0;
+}
+
+.discount-popup-copy {
+  padding: 38px 34px 32px;
+}
+
+.discount-popup-logo {
+  width: 200px;
+  height: 92px;
+  margin-bottom: 28px;
+  object-fit: contain;
+}
+
+.discount-kicker {
+  margin-bottom: 5px;
+  font-size: 42px;
+  line-height: 1.05;
+}
+
+.discount-popup h2 {
+  margin-bottom: 18px;
+  font-size: 62px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.discount-popup .discount-lead {
+  margin-bottom: 18px;
+  font-size: 16px;
+}
+
+.discount-options {
+  gap: 12px;
+}
+
+.discount-options button,
+.discount-email-form button,
+.discount-shop {
+  height: 50px;
+  border-radius: 0;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.discount-popup-image {
+  min-height: 700px;
+  background-image: url("./mom-instagram-1.jpg");
+  background-position: center;
+}
+
+.discount-decline {
+  font-size: 12px;
+}
+
+.mom-live-footer {
+  padding: 60px 4.4% 24px;
+}
+
+@media (max-width: 989px) {
+  .site-header {
+    padding: 0 20px;
+  }
+
+  .product-page {
+    grid-template-columns: 52% minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 749px) {
+  #header-group {
+    top: -31px;
+  }
+
+  .announcement {
+    height: 31px;
+    min-height: 31px;
+    padding: 0 12px;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+
+  .site-header {
+    height: 62px;
+    min-height: 62px;
+    padding: 0 15px;
+  }
+
+  .brand,
+  .brand img {
+    width: 58px;
+    height: 52px;
+  }
+
+  .site-header .brand img {
+    transform: scaleX(-1) !important;
+    transform-origin: center;
+  }
+
+  .header-actions {
+    gap: 2px;
+  }
+
+  .header-actions .lang-switch button {
+    min-width: 20px;
+    font-size: 9px;
+  }
+
+  .mom-catalog-strip {
+    padding: 24px 15px 30px;
+  }
+
+  .mom-live-grid,
+  .collection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 25px 10px;
+  }
+
+  .mom-live-card h3,
+  .mom-live-card .mom-card-copy p {
+    font-size: 11px;
+  }
+
+  .hero {
+    height: 68vh;
+    min-height: 500px;
+  }
+
+  .hero h1 {
+    font-size: clamp(39px, 12vw, 48px);
+    line-height: 0.96;
+  }
+
+  .hero-cta {
+    width: 184px;
+    min-width: 184px;
+    height: 50px;
+    min-height: 50px;
+    margin-top: 22px;
+    font-size: 11px;
+  }
+
+  .mom-categories {
+    padding: 30px 15px;
+  }
+
+  .mom-categories h2,
+  .mom-social-gallery h2 {
+    font-size: 22px;
+  }
+
+  .mom-categories a {
+    flex-basis: 78%;
+  }
+
+  .editorial {
+    height: 560px;
+  }
+
+  .editorial .mom-editorial-copy h2 {
+    font-size: 42px;
+  }
+
+  .mom-featured-tabs > header,
+  .mom-feature-track {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .mom-feature-track {
+    gap: 10px;
+  }
+
+  .mom-feature-track > .mom-live-card {
+    flex-basis: 68%;
+  }
+
+  .mom-social-gallery {
+    padding: 30px 15px;
+  }
+
+  .mom-social-gallery > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mom-benefits {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 15px;
+  }
+
+  .mom-benefits > div {
+    padding: 23px 0;
+    border-bottom: 1px solid #d7d7d4;
+  }
+
+  .mom-benefits > div:last-child {
+    border-bottom: 0;
+  }
+
+  .product-page {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 15px 45px;
+  }
+
+  .product-main-media {
+    margin: 0;
+  }
+
+  .product-detail {
+    position: static;
+    padding: 0;
+  }
+
+  .product-detail h1 {
+    font-size: 24px;
+  }
+
+  #MomCart {
+    width: min(450px, 100vw);
+    padding: 0 20px 20px;
+  }
+
+  .discount-popup-layer {
+    padding: 16px;
+  }
+
+  .discount-popup {
+    display: block;
+    width: calc(100vw - 32px);
+    min-height: 0;
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+  }
+
+  .discount-popup-copy {
+    padding: 30px 22px 26px;
+  }
+
+  .discount-popup-image {
+    display: none;
+  }
+
+  .discount-popup-logo {
+    width: 170px;
+    height: 72px;
+    margin-bottom: 20px;
+  }
+
+  .discount-kicker {
+    font-size: 30px;
+  }
+
+  .discount-popup h2 {
+    font-size: 44px;
+  }
+
+  .mom-footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mom-shipping-returns p {
+  margin: 0 0 18px;
+}
+
+.mom-shipping-returns p:last-child {
+  margin-bottom: 0;
+}
+
+.mom-shipping-returns strong {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mom-product-reviews {
+  padding: 58px 4.4% 68px;
+  background: #f6f6f4;
+}
+
+.mom-product-reviews > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+.mom-product-reviews h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+}
+
+.mom-product-reviews header p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.mom-product-review-list article {
+  padding: 30px 0 34px;
+  border-top: 1px solid #d8d8d4;
+}
+
+.mom-review-stars {
+  margin-bottom: 15px;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+}
+
+.mom-review-stars .is-empty {
+  color: #bbb;
+}
+
+.mom-review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mom-review-author > span {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e7e7e3;
+  font-size: 13px;
+}
+
+.mom-review-author strong {
+  font-size: 13px;
+}
+
+.mom-product-review-list blockquote {
+  max-width: 980px;
+  margin: 18px 0 0 54px;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.mom-footer-brand > a {
+  width: max-content;
+  max-width: 100%;
+  margin-bottom: 12px;
+}
+
+.mom-footer-logo {
+  display: block;
+  width: 230px;
+  max-width: 100%;
+  height: 72px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.mom-footer-logo--asset {
+  object-fit: cover;
+  object-position: center;
+}
+
+.mom-payment-list li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mom-payment-list .mom-payment-icon {
+  display: block;
+  border-radius: 4px;
+}
+
+@media (max-width: 749px) {
+  .mom-product-reviews {
+    padding: 42px 20px 50px;
+  }
+
+  .mom-product-reviews > header {
+    display: block;
+  }
+
+  .mom-product-reviews h2 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+
+  .mom-product-review-list blockquote {
+    margin-left: 0;
+    font-size: 14px;
+  }
+
+  .mom-footer-logo {
+    width: 185px;
+    height: 58px;
+  }
+
+  .mom-payment-list {
+    gap: 5px;
+  }
+
+  .mom-payment-list .mom-payment-icon {
+    width: 40px;
+    height: 25px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mom-social-gallery img {
+    transition: none;
+  }
+}
+/* Metric product size guide */
+.mom-metric-size-guide{display:grid;gap:24px}
+.mom-size-unit{margin:0;font-size:12px;letter-spacing:.02em}
+.mom-size-height-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;padding:18px 0;border-top:1px solid #bbb;border-bottom:1px solid #bbb}
+.mom-size-height-list strong{grid-column:1/-1;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.mom-size-height-list span{font-size:12px}
+.mom-size-diagram{margin:0;padding:18px;border:1px solid #c8c8c3;background:#fff}
+.mom-size-diagram svg{display:block;width:100%;height:auto;max-height:300px}
+.mom-size-diagram figcaption{margin-top:10px;text-align:center;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.mom-garment-line{fill:#f0f0ed;stroke:#111;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.mom-measure-line{fill:none;stroke:#111;stroke-width:2;stroke-linecap:round}
+.mom-measure-label{font-family:Arial,sans-serif;font-size:20px;font-weight:700;text-anchor:middle}
+.mom-size-table-wrap{width:100%;overflow-x:auto}
+.mom-metric-size-guide table{min-width:410px;margin-top:0}
+.mom-metric-size-guide thead th{font-size:9px;line-height:1.35;letter-spacing:.07em;text-transform:uppercase}
+.mom-metric-size-guide tbody th{font-weight:700}
+@media(max-width:520px){.mom-size-height-list{grid-template-columns:1fr}.mom-size-height-list strong{grid-column:auto}.mom-size-diagram{padding:10px}.mom-size-diagram svg{max-height:240px}.mom-metric-size-guide table{min-width:390px}.mom-metric-size-guide th,.mom-metric-size-guide td{padding:11px 4px;font-size:11px}.mom-dynamic-checkout{--shopify-accelerated-checkout-button-block-size:54px}.mom-dynamic-checkout .shopify-payment-button__button--unbranded{min-height:54px!important}}

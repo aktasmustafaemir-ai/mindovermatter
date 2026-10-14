@@ -1,0 +1,124 @@
+<dialog id="MomCart" class="drawer cart-drawer mom-dialog" aria-labelledby="MomCartTitle">
+  <div data-cart-content>
+    <div class="cart-head">
+      <h2 id="MomCartTitle">{{ 'mom.cart' | t }} ({{ cart.item_count }})</h2>
+      <div class="cart-head-actions">
+        {% if cart.item_count > 0 and settings.mom_cart_timer %}
+          <div class="cart-head-timer"><span>{{ 'mom.timer' | t }}</span><strong data-time>10:00</strong></div>
+        {% endif %}
+        <button class="close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button>
+      </div>
+    </div>
+
+    {% assign threshold = section.settings.free_shipping_threshold | times: 100 %}
+    {% if threshold > 0 and cart.item_count > 0 %}
+      <div class="mom-shipping-progress">
+        {% assign remaining = threshold | minus: cart.total_price %}
+        {% if remaining > 0 %}
+          <p>{{ 'mom.shipping_remaining' | t }}: <strong>{% render 'mom-money', amount: remaining %}</strong></p>
+        {% else %}
+          <p>{{ 'mom.free_shipping' | t }}</p>
+        {% endif %}
+        <progress max="{{ threshold }}" value="{{ cart.total_price | at_most: threshold }}" aria-label="{{ 'mom.free_shipping' | t }}"></progress>
+        <small>{{ 'mom.free_shipping' | t }}</small>
+      </div>
+    {% endif %}
+
+    {% if cart.empty? %}
+      <div class="empty-cart">
+        <h3>{{ 'mom.empty_cart' | t }}</h3>
+        <p>{{ 'mom.cart_prompt' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}">{{ 'mom.start_shopping' | t }}</a>
+      </div>
+    {% else %}
+      <div class="cart-content">
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <article class="cart-line">
+              {% if item.image %}{{ item.image | image_url: width: 240 | image_tag: alt: item.product.title }}{% endif %}
+              <div class="cart-line-body">
+                <div class="cart-line-top">
+                  <h3><a href="{{ item.url }}">{{ item.product.title | escape }}</a></h3>
+                  <button class="cart-line-remove" data-cart-key="{{ item.key }}" data-quantity="0" aria-label="{{ 'mom.remove' | t }}">×</button>
+                </div>
+                {% unless item.product.has_only_default_variant %}
+                  {% for option in item.options_with_values %}<p class="cart-line-meta">{{ option.name | escape }}: {{ option.value | escape }}</p>{% endfor %}
+                {% endunless %}
+                {% for property in item.properties %}
+                  {% assign first_character = property.first | slice: 0 %}
+                  {% unless property.last == blank or first_character == '_' %}<p class="cart-line-meta">{{ property.first | escape }}: {{ property.last | escape }}</p>{% endunless %}
+                {% endfor %}
+                <div class="cart-line-bottom">
+                  <div class="cart-line-quantity">
+                    <button data-cart-key="{{ item.key }}" data-quantity="{{ item.quantity | minus: 1 }}" aria-label="{{ 'accessibility.decrease_quantity' | t }}">−</button>
+                    <span>{{ item.quantity }}</span>
+                    <button data-cart-key="{{ item.key }}" data-quantity="{{ item.quantity | plus: 1 }}" aria-label="{{ 'accessibility.increase_quantity' | t }}">+</button>
+                  </div>
+                  <strong>{% render 'mom-money', amount: item.final_line_price %}</strong>
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+
+        {% assign match = cart.items.first.product.metafields.custom.matching_product.value | default: section.settings.matching %}
+        {% assign match_in_cart = false %}
+        {% for item in cart.items %}{% if item.product.id == match.id %}{% assign match_in_cart = true %}{% endif %}{% endfor %}
+        {% if match != blank and match_in_cart == false %}
+          <aside class="mom-cart-match">
+            <h3>{{ 'mom.complete_set' | t }}</h3>
+            <a href="{{ match.url }}">
+              {{ match.featured_image | image_url: width: 240 | image_tag: loading: 'lazy' }}
+              <div><h4>{{ match.title | escape }}</h4><p>{% render 'mom-money', amount: match.price %}</p><span>{{ 'mom.select' | t }}</span></div>
+            </a>
+          </aside>
+        {% endif %}
+      </div>
+
+      <div class="mom-order-note">
+        <button type="button" data-note-toggle aria-expanded="false">{{ 'mom.order_note' | t }}</button>
+        <div class="mom-note-panel" hidden>
+          <button type="button" class="mom-order-note-close" data-note-close aria-label="{{ 'actions.close' | t }}">×</button>
+          <label for="MomCartNote">{{ 'mom.order_note' | t }}</label>
+          <textarea id="MomCartNote" rows="4">{{ cart.note | escape }}</textarea>
+          <button type="button" data-note-save>{{ 'mom.save' | t }}</button>
+          <p data-note-status role="status"></p>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <p><span>{{ 'mom.subtotal' | t }}</span><strong>{% render 'mom-money', amount: cart.total_price %}</strong></p>
+        {% for discount in cart.cart_level_discount_applications %}
+          <small>{{ discount.title | escape }} (−{% render 'mom-money', amount: discount.total_allocated_amount %})</small>
+        {% endfor %}
+        <small>{{ 'mom.tax_shipping' | t }}</small>
+        <form action="{{ routes.cart_url }}" method="post"><button class="cart-checkout" name="checkout" type="submit">{{ 'mom.checkout' | t }}</button></form>
+      </div>
+    {% endif %}
+    <p data-cart-error class="mom-error" role="alert"></p>
+    <span data-count="{{ cart.item_count }}" hidden></span>
+  </div>
+</dialog>
+{% schema %}
+{
+  "name": "MOM Cart",
+  "settings": [
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Ücretsiz kargo eşiği (mağaza para birimi)",
+      "default": 0
+    },
+    {
+      "type": "paragraph",
+      "content": "Yalnızca Shopify kargo ayarlarınızda gerçekten tanımlanmış eşiği girin. 0 olduğunda gösterilmez; tema kargo ücreti değiştirmez."
+    },
+    {
+      "type": "product",
+      "id": "matching",
+      "label": "Tamamlayıcı ürün"
+    }
+  ],
+  "presets": [{ "name": "MOM Cart" }]
+}
+{% endschema %}

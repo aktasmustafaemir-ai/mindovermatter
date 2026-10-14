@@ -1,0 +1,18 @@
+<section class="collection-page"><header class="visually-hidden"><h1>{{ collection.title | escape }}</h1>{% if section.settings.subtitle != blank %}<p>{{ section.settings.subtitle | escape }}</p>{% endif %}</header>{% paginate collection.products by 24 %}<div class="collection-grid">{% for product in collection.products %}{% render 'mom-card', product: product %}{% else %}<p>{{ 'mom.coming_soon' | t }}</p>{% endfor %}</div>{% if paginate.pages > 1 %}<nav class="mom-pagination">{{ paginate | default_pagination }}</nav>{% endif %}{% endpaginate %}</section>
+{% schema %}
+{
+  "name": "MOM Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Alt başlık"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM Collection"
+    }
+  ]
+}
+{% endschema %}

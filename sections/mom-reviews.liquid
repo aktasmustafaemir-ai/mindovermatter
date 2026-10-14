@@ -1,0 +1,42 @@
+{% if section.blocks.size > 0 or request.design_mode %}<section class="reviews"><div class="reviews-heading"><div><p>MIND OVER MATTER</p><h2>{{ section.settings.heading | escape }}</h2></div><div class="review-arrows"><button data-review-direction="-1" aria-label="{{ 'mom.previous' | t }}">←</button><button data-review-direction="1" aria-label="{{ 'mom.next' | t }}">→</button></div></div><div class="review-cards">{% for block in section.blocks %}<article {{ block.shopify_attributes }}><b aria-hidden="true">“</b><p>{{ block.settings.text | escape }}</p><small>{{ block.settings.author | escape }}</small></article>{% else %}<article><b>“</b><p>{{ 'mom.review_placeholder' | t }}</p><small>{{ 'mom.sample' | t }}</small></article>{% endfor %}</div><div class="review-dots">{% for block in section.blocks %}<button data-review-index="{{ forloop.index0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="{{ 'mom.review' | t }} {{ forloop.index }}"></button>{% endfor %}</div>{% if section.settings.disclosure != blank %}<p class="reviews-disclosure">{{ section.settings.disclosure | escape }}</p>{% endif %}</section>{% endif %}
+{% schema %}
+{
+  "name": "MOM Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Başlık",
+      "default": "GİYENLERDEN."
+    },
+    {
+      "type": "text",
+      "id": "disclosure",
+      "label": "Açıklama"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM Reviews"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Yorum",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Yorum metni"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Yorum sahibi"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

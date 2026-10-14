@@ -1,0 +1,209 @@
+{% assign selected = product.selected_or_first_available_variant %}
+<section class="product-page"><div class="product-gallery"><div class="product-main-media"><button type="button" class="mom-image-zoom" data-mom-open="MomImageZoom" aria-label="{{ 'mom.zoom_image' | t }}">{% if product.featured_image %}{{ selected.featured_image | default: product.featured_image | image_url: width: 1600 | image_tag: class: 'active', fetchpriority: 'high', id: 'MomMainImage' }}{% endif %}</button></div><div class="product-thumbs">{% for image in product.images %}<button type="button" class="{% if image == selected.featured_image or forloop.first and selected.featured_image == blank %}active{% endif %}" data-image="{{ image | image_url: width: 1600 }}" data-image-alt="{{ image.alt | default: product.title | escape }}" aria-label="{{ 'mom.image' | t }} {{ forloop.index }}">{{ image | image_url: width: 240 | image_tag: loading: 'lazy', alt: '' }}</button>{% endfor %}</div></div>
+<div class="product-detail"><h1>{{ product.title | escape }}</h1><p class="detail-price" data-price>{% render 'mom-money', amount: selected.price %}{% if selected.compare_at_price > selected.price %} <s>{% render 'mom-money', amount: selected.compare_at_price %}</s>{% endif %}</p><p class="stock {% if selected.available %}in-stock{% else %}out-stock{% endif %}" data-stock hidden><i></i><span>{% if selected.available %}{{ 'mom.in_stock' | t }}{% else %}{{ 'mom.sold_out' | t }}{% endif %}</span></p>
+{% form 'product', product, id: 'MomProductForm' %}
+<label class="mom-variant-fallback" for="MomVariantId">{{ 'mom.variant' | t }}</label><select class="mom-variant-fallback" name="id" id="MomVariantId">{% for variant in product.variants %}<option value="{{ variant.id }}" {% if selected.id == variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title | escape }} — {% render 'mom-money', amount: variant.price %}</option>{% endfor %}</select>
+<div class="mom-option-groups" hidden>{% unless product.has_only_default_variant %}{% for option in product.options_with_values %}{% assign position = forloop.index0 %}{% assign name_downcase = option.name | downcase %}{% assign is_color = false %}{% if name_downcase == 'color' or name_downcase == 'colour' or name_downcase == 'renk' %}{% assign is_color = true %}{% endif %}<fieldset class="mom-option-group" data-option-group="{{ position }}"><legend>{{ option.name | escape }} : <span data-option-label>{{ option.selected_value | escape }}</span></legend>{% if name_downcase == 'size' or name_downcase == 'beden' %}<button class="mom-size-link" type="button" data-mom-open="MomSizeGuide">{{ 'mom.size_guide' | t }}</button>{% endif %}<div class="size-options{% if is_color %} mom-color-options{% endif %}">{% for value in option.values %}<label class="mom-variant{% if value == option.selected_value %} selected{% endif %}{% if is_color %} mom-color-swatch{% endif %}"><input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" data-option-position="{{ position }}" {% if value == option.selected_value %}checked{% endif %}>{% if is_color %}{% assign color_name = value | downcase %}{% assign swatch_color = '#c7c7c7' %}{% case color_name %}{% when 'black', 'siyah' %}{% assign swatch_color = '#000000' %}{% when 'white', 'beyaz' %}{% assign swatch_color = '#ffffff' %}{% when 'gray', 'grey', 'gri', 'heather gray' %}{% assign swatch_color = '#a6a6a6' %}{% when 'navy', 'lacivert' %}{% assign swatch_color = '#182949' %}{% when 'brown', 'kahverengi' %}{% assign swatch_color = '#574033' %}{% when 'blue', 'mavi' %}{% assign swatch_color = '#7ca6c6' %}{% when 'pink', 'pembe' %}{% assign swatch_color = '#e0b0ba' %}{% endcase %}<span class="mom-swatch-fill" style="--swatch-color:{{ value.swatch.color | default: swatch_color }};{% if value.swatch.image %}background-image:url({{ value.swatch.image | image_url: width: 100 }}){% endif %}" aria-hidden="true"></span><span class="visually-hidden">{{ value | escape }}</span>{% else %}<span>{{ value | escape }}</span>{% endif %}</label>{% endfor %}</div></fieldset>{% endfor %}{% endunless %}</div>
+<label class="quantity-label" for="MomQuantity">{{ 'mom.quantity' | t }}</label><div class="quantity-control"><button type="button" data-product-quantity="-1" aria-label="{{ 'accessibility.decrease_quantity' | t }}">−</button><input id="MomQuantity" name="quantity" type="number" min="{{ selected.quantity_rule.min | default: 1 }}" step="{{ selected.quantity_rule.increment | default: 1 }}" value="{{ selected.quantity_rule.min | default: 1 }}" {% if selected.quantity_rule.max %}max="{{ selected.quantity_rule.max }}"{% endif %}><button type="button" data-product-quantity="1" aria-label="{{ 'accessibility.increase_quantity' | t }}">+</button></div><div class="mom-buy-actions"><button class="add-to-cart" type="submit" data-submit {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}{{ 'mom.add_to_cart' | t }}{% else %}{{ 'mom.sold_out' | t }}{% endif %}</button><p class="mom-error" data-product-error role="alert"></p>{% if section.settings.dynamic_checkout %}<div class="mom-dynamic-checkout"{% unless selected.available %} hidden{% endunless %}>{{ form | payment_button }}</div>{% endif %}</div>{% endform %}
+{% if section.settings.shipping != blank %}<p class="shipping-note">{{ section.settings.shipping | escape }}</p>{% endif %}
+<div class="product-collapsibles">
+  <details open>
+    <summary>{{ 'mom.details' | t }} <span>+</span></summary>
+    <div class="rte">
+      {% if product.description != blank %}
+        {{ product.description }}
+      {% else %}
+        <ul>
+          <li>{{ 'mom.default_detail_material' | t }}</li>
+          <li>{{ 'mom.default_detail_fit' | t }}</li>
+          <li>{{ 'mom.default_detail_embroidery' | t }}</li>
+        </ul>
+      {% endif %}
+    </div>
+  </details>
+  <details>
+    <summary>{{ 'mom.fit_size' | t }} <span>+</span></summary>
+    <div class="rte mom-fit-size">
+      {% if product.metafields.custom.fit_and_size != blank %}
+        {{ product.metafields.custom.fit_and_size | metafield_tag }}
+      {% elsif section.settings.fit_text != blank %}
+        {{ section.settings.fit_text }}
+      {% else %}
+        <p>{{ 'mom.fit_size_fallback' | t }}</p>
+      {% endif %}
+      <button class="mom-inline-size-link" type="button" data-mom-open="MomSizeGuide">{{ 'mom.open_size_guide' | t }}</button>
+    </div>
+  </details>
+  <details>
+    <summary>{{ 'mom.care_instructions' | t }} <span>+</span></summary>
+    <div class="rte mom-care-instructions">
+      {% if product.metafields.custom.care_instructions != blank %}
+        {{ product.metafields.custom.care_instructions | metafield_tag }}
+      {% elsif section.settings.care_text != blank %}
+        {{ section.settings.care_text }}
+      {% else %}
+        <p>{{ 'mom.care_fallback' | t }}</p>
+      {% endif %}
+    </div>
+  </details>
+  <details>
+    <summary>{{ 'mom.shipping_returns' | t }} <span>+</span></summary>
+    <div class="rte mom-shipping-returns">
+      {% if shop.shipping_policy.body != blank %}
+        {{ shop.shipping_policy.body }}
+      {% else %}
+        <p><strong>{{ 'mom.shipping_dispatch' | t }}</strong></p>
+        <p><strong>{{ 'mom.shipping_turkey' | t }}</strong><br>{{ 'mom.shipping_delivery' | t }}</p>
+      {% endif %}
+      {% if shop.refund_policy.body != blank %}
+        {{ shop.refund_policy.body }}
+      {% else %}
+        <p><strong>{{ 'mom.returns_title' | t }}</strong><br>{{ 'mom.returns_body' | t }}</p>
+      {% endif %}
+    </div>
+  </details>
+</div>
+
+{% assign matching = product.metafields.custom.matching_product.value | default: section.settings.matching %}
+{% if matching == blank and section.settings.recommendations != blank %}
+  {% assign current_title = product.title | downcase %}
+  {% assign current_is_bottom = false %}
+  {% if current_title contains 'eşofman' or current_title contains 'sweatpant' or current_title contains 'pant' %}{% assign current_is_bottom = true %}{% endif %}
+  {% assign current_color = '' %}
+  {% if current_title contains 'gri' or current_title contains 'gray' or current_title contains 'grey' %}
+    {% assign current_color = 'gray' %}
+  {% elsif current_title contains 'siyah' or current_title contains 'black' %}
+    {% assign current_color = 'black' %}
+  {% endif %}
+  {% for candidate in section.settings.recommendations.products %}
+    {% unless candidate.id == product.id %}
+      {% assign candidate_title = candidate.title | downcase %}
+      {% assign same_color = false %}
+      {% if current_color == 'gray' %}
+        {% if candidate_title contains 'gri' or candidate_title contains 'gray' or candidate_title contains 'grey' %}{% assign same_color = true %}{% endif %}
+      {% elsif current_color == 'black' %}
+        {% if candidate_title contains 'siyah' or candidate_title contains 'black' %}{% assign same_color = true %}{% endif %}
+      {% endif %}
+      {% if same_color %}
+        {% if current_is_bottom %}
+          {% if candidate_title contains 'hoodie' or candidate_title contains 'sweatshirt' %}{% assign matching = candidate %}{% break %}{% endif %}
+        {% else %}
+          {% if candidate_title contains 'eşofman' or candidate_title contains 'sweatpant' or candidate_title contains 'pant' %}{% assign matching = candidate %}{% break %}{% endif %}
+        {% endif %}
+      {% endif %}
+    {% endunless %}
+  {% endfor %}
+{% endif %}
+{% if matching != blank %}<aside class="matching"><h2>{{ 'mom.complete_set' | t }}</h2><a href="{{ matching.url }}">{{ matching.featured_image | image_url: width: 600 | image_tag: loading: 'lazy' }}<div><h3>{{ matching.title | escape }}</h3><p>{% render 'mom-money', amount: matching.price %}</p><span>{{ 'mom.view_product' | t }}</span></div></a></aside>{% endif %}</div></section>
+
+<dialog id="MomSizeGuide" class="size-guide-modal mom-dialog" aria-labelledby="MomSizeTitle"><button class="size-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button><aside><header><h2 id="MomSizeTitle">{{ 'mom.size_guide' | t }}</h2><button data-mom-close aria-label="{{ 'actions.close' | t }}">×</button></header><div>{% assign chart = product.metafields.custom.size_chart.value | default: section.settings.size_chart %}{% if chart != blank %}{{ chart | image_url: width: 1200 | image_tag: class: 'guide-image' }}{% elsif section.settings.size_text != blank %}{{ section.settings.size_text }}{% else %}{% render 'mom-size-guide', product: product %}{% endif %}</div></aside></dialog>
+
+{% assign review_count = 0 %}{% for block in section.blocks %}{% if block.type == 'review' %}{% assign review_count = review_count | plus: 1 %}{% endif %}{% endfor %}
+{% if review_count > 0 %}
+  <section class="mom-product-reviews">
+    <header><h2>{{ 'mom.product_reviews' | t }}</h2><p><strong>5.0</strong> · {{ review_count }} {{ 'mom.reviews_count' | t }}</p></header>
+    <div class="mom-product-review-list">
+      {% for block in section.blocks %}{% if block.type == 'review' %}
+        <article {{ block.shopify_attributes }}>
+          <div class="mom-review-stars" aria-label="{{ block.settings.rating }} / 5">{% for i in (1..5) %}<span{% if i > block.settings.rating %} class="is-empty"{% endif %}>★</span>{% endfor %}</div>
+          <div class="mom-review-author"><span>{{ block.settings.author | slice: 0, 1 | escape }}</span><strong>{{ block.settings.author | escape }}{% if block.settings.age != blank %}, {{ block.settings.age | escape }}{% endif %}</strong></div>
+          <blockquote>{{ block.settings.text | escape }}</blockquote>
+        </article>
+      {% endif %}{% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% for block in section.blocks %}{% if block.type == '@app' %}{% render block %}{% endif %}{% endfor %}
+{% if section.settings.recommendations != blank %}<section class="recommendations"><h2>{{ 'mom.recommendations' | t }}</h2><div>{% for item in section.settings.recommendations.products limit: 5 %}{% unless item.id == product.id %}{% render 'mom-card', product: item %}{% endunless %}{% endfor %}</div></section>{% endif %}<script type="application/ld+json">{{ product | structured_data }}</script>
+<dialog id="MomImageZoom" class="mom-dialog mom-zoom-dialog" aria-label="{{ 'mom.zoom_image' | t }}"><button type="button" class="close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button>{% if product.featured_image %}{{ selected.featured_image | default: product.featured_image | image_url: width: 2400 | image_tag: id: 'MomZoomImage' }}{% endif %}</dialog>
+<script type="application/json" id="MomVariantData">[{% for variant in product.variants %}{"id":{{ variant.id | json }},"options":{{ variant.options | json }},"price":{{ variant.price | json }},"compare":{% if variant.compare_at_price > variant.price %}{{ variant.compare_at_price | json }}{% else %}null{% endif %},"available":{{ variant.available | json }},"image":{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 1600 | json }}{% else %}null{% endif %},"min":{{ variant.quantity_rule.min | default: 1 }},"step":{{ variant.quantity_rule.increment | default: 1 }},"max":{{ variant.quantity_rule.max | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script>
+{% schema %}
+{
+  "name": "MOM • Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "shipping",
+      "label": "Teslimat açıklaması"
+    },
+    {
+      "type": "image_picker",
+      "id": "size_chart",
+      "label": "Beden tablosu"
+    },
+    {
+      "type": "richtext",
+      "id": "size_text",
+      "label": "Beden açıklaması"
+    },
+    {
+      "type": "richtext",
+      "id": "fit_text",
+      "label": "Beden ve kalıp açıklaması"
+    },
+    {
+      "type": "richtext",
+      "id": "care_text",
+      "label": "Bakım talimatları"
+    },
+    {
+      "type": "product",
+      "id": "matching",
+      "label": "Kombini tamamlayan ürün"
+    },
+    {
+      "type": "collection",
+      "id": "recommendations",
+      "label": "Önerilen ürünler"
+    },
+    {
+      "type": "checkbox",
+      "id": "dynamic_checkout",
+      "label": "Hızlandırılmış ödeme düğmesi",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM • Product"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "review",
+      "name": "Müşteri yorumu",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Ad soyad"
+        },
+        {
+          "type": "text",
+          "id": "age",
+          "label": "Yaş"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Puan",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Yorum"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

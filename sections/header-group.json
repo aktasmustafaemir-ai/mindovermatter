@@ -1,0 +1,13 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "mom_header": {
+      "type": "mom-header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "mom_header"
+  ]
+}

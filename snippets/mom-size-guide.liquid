@@ -1,0 +1,86 @@
+{% liquid
+  assign product_name = product.title | downcase
+  assign product_type_name = product.type | downcase
+  assign is_bottom = false
+  if product_name contains 'eşofman' or product_name contains 'sweatpant' or product_name contains 'pant' or product_type_name contains 'eşofman' or product_type_name contains 'sweatpant' or product_type_name contains 'pant'
+    assign is_bottom = true
+  endif
+%}
+
+<div class="mom-metric-size-guide">
+  <p class="mom-size-unit">{{ 'mom.size_metric_note' | t }}</p>
+
+  <div class="mom-size-height-list" aria-label="{{ 'mom.size_recommended_heights' | t }}">
+    <strong>{{ 'mom.size_recommended_heights' | t }}</strong>
+    <span>S · 163–173 cm</span>
+    <span>M · 170–180 cm</span>
+    <span>L · 178–188 cm</span>
+    <span>XL · 185–196+ cm</span>
+  </div>
+
+  <figure class="mom-size-diagram">
+    {% if is_bottom %}
+      <svg viewBox="0 0 520 360" role="img" aria-labelledby="MomBottomDiagramTitle">
+        <title id="MomBottomDiagramTitle">{{ 'mom.bottom_measurement_diagram' | t }}</title>
+        <g class="mom-garment-line">
+          <path d="M188 46h144l18 254-72 7-18-166-18 166-72-7z"/>
+          <path d="M188 46c18 19 126 19 144 0M260 46v95M198 78h124"/>
+        </g>
+        <g class="mom-measure-line">
+          <path d="M196 91h128"/><path d="M196 84v14M324 84v14"/>
+          <path d="M368 49v252"/><path d="M361 49h14M361 301h14"/>
+          <path d="M260 143v158"/><path d="M253 143h14M253 301h14"/>
+        </g>
+        <g class="mom-measure-label"><text x="260" y="82">A</text><text x="386" y="180">B</text><text x="278" y="226">C</text></g>
+      </svg>
+    {% else %}
+      <svg viewBox="0 0 520 360" role="img" aria-labelledby="MomTopDiagramTitle">
+        <title id="MomTopDiagramTitle">{{ 'mom.top_measurement_diagram' | t }}</title>
+        <g class="mom-garment-line">
+          <path d="M206 76c8-32 100-32 108 0l46 30 48 118-55 23-37-79v139H204V168l-37 79-55-23 48-118z"/>
+          <path d="M206 76c12 28 96 28 108 0M204 264h112M160 106l44 62M360 106l-44 62"/>
+          <path d="M231 92c-8-46 66-46 58 0"/>
+        </g>
+        <g class="mom-measure-line">
+          <path d="M204 184h112"/><path d="M204 177v14M316 177v14"/>
+          <path d="M334 97v210"/><path d="M327 97h14M327 307h14"/>
+          <path d="M156 112l-43 108"/><path d="M150 109l13 6M107 217l13 6"/>
+        </g>
+        <g class="mom-measure-label"><text x="260" y="175">A</text><text x="351" y="207">B</text><text x="118" y="158">C</text></g>
+      </svg>
+    {% endif %}
+    <figcaption>{{ 'mom.how_to_measure' | t }}</figcaption>
+  </figure>
+
+  <div class="mom-size-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">{{ 'mom.size_size' | t }}</th>
+          {% if is_bottom %}
+            <th scope="col">{{ 'mom.size_waist' | t }} (A)</th>
+            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
+            <th scope="col">{{ 'mom.size_inseam' | t }} (C)</th>
+          {% else %}
+            <th scope="col">{{ 'mom.size_chest' | t }} (A)</th>
+            <th scope="col">{{ 'mom.size_length' | t }} (B)</th>
+            <th scope="col">{{ 'mom.size_sleeve' | t }} (C)</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% if is_bottom %}
+          <tr><th scope="row">S</th><td>52 cm</td><td>99 cm</td><td>69 cm</td></tr>
+          <tr><th scope="row">M</th><td>53 cm</td><td>102,5 cm</td><td>72 cm</td></tr>
+          <tr><th scope="row">L</th><td>54 cm</td><td>106 cm</td><td>75 cm</td></tr>
+          <tr><th scope="row">XL</th><td>55 cm</td><td>109,5 cm</td><td>78 cm</td></tr>
+        {% else %}
+          <tr><th scope="row">S</th><td>62,5 cm</td><td>63 cm</td><td>44,5 cm</td></tr>
+          <tr><th scope="row">M</th><td>65 cm</td><td>65 cm</td><td>45,5 cm</td></tr>
+          <tr><th scope="row">L</th><td>67,5 cm</td><td>68 cm</td><td>46,5 cm</td></tr>
+          <tr><th scope="row">XL</th><td>70 cm</td><td>71 cm</td><td>47,5 cm</td></tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<section class="faq"><div class="faq-inner"><header><h2>{% if request.locale.iso_code == 'en' %}{{ section.settings.heading_en | escape }}{% else %}{{ section.settings.heading | escape }}{% endif %}</h2></header><div class="faq-list">
+{% for block in section.blocks %}<details {{ block.shopify_attributes }}><summary>{% if request.locale.iso_code == 'en' %}{{ block.settings.question_en | escape }}{% else %}{{ block.settings.question | escape }}{% endif %}<i aria-hidden="true"></i></summary><div class="reference-faq-answer">{% if request.locale.iso_code == 'en' %}{{ block.settings.answer_en }}{% else %}{{ block.settings.answer }}{% endif %}</div></details>{% endfor %}
+</div></div></section>
+{% schema %}
+{
+  "name": "MOM • Sık sorulanlar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Başlık — Türkçe",
+      "default": "SORULAR?"
+    },
+    {
+      "type": "text",
+      "id": "heading_en",
+      "label": "Başlık — İngilizce",
+      "default": "QUESTIONS?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Soru",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Soru — Türkçe"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Yanıt — Türkçe"
+        },
+        {
+          "type": "text",
+          "id": "question_en",
+          "label": "Soru — İngilizce"
+        },
+        {
+          "type": "richtext",
+          "id": "answer_en",
+          "label": "Yanıt — İngilizce"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM • Sık sorulanlar"
+    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
+{% endschema %}

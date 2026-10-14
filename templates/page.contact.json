@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "mom-contact",
+      "settings": {}
+    },
+    "mom_faq": {
+      "type": "mom-faq",
+      "settings": {},
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "BEDENİMİ NASIL SEÇMELİYİM?",
+            "answer": "<p>Ürün sayfasındaki beden seçeneklerini ve ürün açıklamasını inceleyebilirsin.</p>",
+            "question_en": "HOW DO I CHOOSE MY SIZE?",
+            "answer_en": "<p>Check the size options and description on each product page.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "KARGO BİLGİLERİNİ NEREDE BULABİLİRİM?",
+            "answer": "<p>Teslimat seçenekleri ve ücretleri ödeme adımında görüntülenir. Ayrıntılar için kargo politikamızı inceleyebilirsin.</p>",
+            "question_en": "WHERE CAN I FIND SHIPPING INFORMATION?",
+            "answer_en": "<p>Delivery options and costs are shown at checkout. See our shipping policy for details.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "İADE VE DEĞİŞİM NASIL YAPILIR?",
+            "answer": "<p>Güncel koşullar ve başvuru adımları için mağazamızın iade politikasını inceleyebilirsin.</p>",
+            "question_en": "HOW DO RETURNS WORK?",
+            "answer_en": "<p>See our store’s return policy for current conditions and instructions.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "mom_faq"
+  ]
+}

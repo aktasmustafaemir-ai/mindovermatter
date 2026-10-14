@@ -1,0 +1,42 @@
+<section class="mom-categories"><h2>{{ 'mom.shop_collections' | t }}</h2><div>{% for block in section.blocks %}{% assign target = block.settings.collection | default: collections.all %}{% assign picture = block.settings.image | default: target.featured_image | default: target.products.first.featured_image %}<a href="{{ target.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>{% if picture %}{{ picture | image_url: width: 1000 | image_tag: loading: 'lazy' }}{% else %}{{ 'collection-1' | placeholder_svg_tag }}{% endif %}<b>0{{ forloop.index }}</b><h3>{% if request.locale.iso_code == 'en' %}{{ block.settings.title_en | escape }}{% else %}{{ block.settings.title | escape }}{% endif %}</h3></a>{% endfor %}</div></section>
+{% schema %}
+{
+  "name": "MOM • Categories",
+  "settings": [],
+  "presets": [
+    {
+      "name": "MOM • Categories"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Koleksiyon",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Koleksiyon"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Görsel"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Başlık",
+          "default": "KOLEKSİYON"
+        },
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "İngilizce başlık",
+          "default": "COLLECTION"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

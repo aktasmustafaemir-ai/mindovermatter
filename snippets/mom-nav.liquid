@@ -1,0 +1,17 @@
+{% if menu != blank %}
+  {% for link in menu.links %}
+    {% assign nav_title = link.title %}
+    {% assign nav_key = link.title | downcase | strip %}
+    {% case nav_key %}
+      {% when 'shop', 'store', 'all products', 'products', 'mağaza' %}{% assign nav_title = 'MAĞAZA' %}
+      {% when 'contact', 'contact us', 'iletişim' %}{% assign nav_title = 'İLETİŞİM' %}
+      {% when 'about', 'about us', 'hakkımızda' %}{% assign nav_title = 'HAKKIMIZDA' %}
+      {% when 'search' %}{% assign nav_title = 'ARA' %}
+    {% endcase %}
+    <a href="{{ link.url }}">{{ nav_title | escape }}</a>
+  {% endfor %}
+{% else %}
+  <a href="{{ collections['001'].url | default: routes.all_products_collection_url }}">01</a>
+  <a href="{{ routes.all_products_collection_url }}">{{ 'mom.shop' | t }}</a>
+  {% if pages.contact != blank %}<a href="{{ pages.contact.url }}">{{ 'mom.contact' | t }}</a>{% endif %}
+{% endif %}

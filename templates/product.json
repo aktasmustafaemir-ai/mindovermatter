@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "main": {
+      "type": "mom-product",
+      "settings": {
+        "recommendations": "all"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "author": "Deniz Yılmaz",
+            "age": "23",
+            "rating": 5,
+            "text": "Kumaşı gerçekten tok ve kaliteli. Oversize duruşu tam istediğim gibi, kalıbı çok iyi."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "author": "Berkay Aydın",
+            "age": "21",
+            "rating": 5,
+            "text": "Dikişleri ve nakış detayları çok temiz. Takım olarak aldım, ikisi birlikte çok iyi duruyor."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "author": "Ege Demir",
+            "age": "24",
+            "rating": 5,
+            "text": "Günlük kullanımda çok rahat. Birkaç yıkamadan sonra da formunu ve rengini korudu."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

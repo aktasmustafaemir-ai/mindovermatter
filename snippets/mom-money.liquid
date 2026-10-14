@@ -1,0 +1,10 @@
+{%- liquid
+  assign mom_amount = amount | default: 0
+  assign mom_currency = cart.currency.iso_code | default: shop.currency
+-%}
+{%- if localization.language.iso_code == 'tr' and mom_currency == 'TRY' -%}
+  {%- capture mom_raw -%}{{ mom_amount | money_without_currency }}{%- endcapture -%}
+  {{- mom_raw | strip | replace: ',', 'MOMSEP' | replace: '.', ',' | replace: 'MOMSEP', '.' -}} TL
+{%- else -%}
+  {{- mom_amount | money -}}
+{%- endif -%}

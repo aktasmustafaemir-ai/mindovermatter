@@ -1,0 +1,46 @@
+MIND OVER MATTER — GOOGLE SEARCH CONSOLE KURULUMU
+
+1. Temayı Shopify mağazanıza yükleyin ve yayınlayın.
+2. https://search.google.com/search-console adresinde Mülk ekle > URL ön eki
+   seçeneğini açın. Mağazanızın birincil alan adını https:// ile birlikte girin.
+3. HTML etiketi yöntemini seçin. Verilen meta etiketindeki content="..."
+   bölümünün yalnızca tırnaklar arasındaki doğrulama kodunu kopyalayın.
+4. Shopify > Online Store > Themes > Customize > Theme settings >
+   Google Search Console > Google doğrulama kodu alanına kodu yapıştırıp kaydedin.
+   Tam meta etiketini bu alana yapıştırmayın.
+5. Mağazanın parola korumasını kaldırın. Ana sayfanın kaynak kodunda
+   google-site-verification etiketinin doğru kodla çıktığını kontrol edin.
+6. Search Console'a dönüp Doğrula düğmesine basın. Doğrulama sonrasında
+   kodu silmeyin; tema değiştirirseniz yeni temaya da ekleyin.
+7. Dizin oluşturma > Site haritaları bölümünde sitemap.xml gönderin.
+
+SHOPIFY TARAFINDAN OTOMATİK OLUŞTURULAN DOSYALAR
+
+https://MAGAZANIZIN-ALAN-ADI/sitemap.xml
+https://MAGAZANIZIN-ALAN-ADI/robots.txt
+
+Bu adreslerde örnek alan adını mağazanızın gerçek birincil alan adıyla değiştirin.
+Sitemap, Shopify tarafından ürünler, koleksiyonlar, sayfalar ve blog içerikleri
+değiştikçe güncellenir. Tema assets klasörüne sitemap.xml veya google*.html
+eklemek bu dosyaları sitenin kök adresinde yayınlamaz. Bu nedenle doğrulama
+için HTML meta etiketi kullanılır. Shopify'ın varsayılan robots.txt dosyası
+kullanılır; ayrıca bir robots.txt.liquid şablonu gerekmez.
+
+ALTERNATİF: ALAN ADI MÜLKÜ
+
+Search Console'da Alan adı mülkünü seçerseniz Google'ın verdiği TXT kaydını
+alan adınızın DNS yönetimine ekleyip doğrulayın. Bu yöntem tema dosyası
+gerektirmez; yukarıdaki HTML etiketi yöntemi URL ön eki mülkü içindir.
+
+YAYIN SONRASI KONTROL
+
+- Ana sayfa ve sitemap.xml parola ekranı olmadan açılmalı.
+- robots.txt içinde sitemap adresi bulunmalı ve ürün/koleksiyon sayfaları
+  yanlışlıkla engellenmemeli.
+- Ana sayfa ve örnek ürün URL'sini Search Console URL Denetimi ile kontrol edin.
+- Sayfa başlığı ve açıklamalarını Shopify SEO alanlarından düzenleyin.
+- Mevcut tema canonical URL etiketini zaten üretir.
+
+RESMİ KAYNAKLAR
+https://help.shopify.com/en/manual/promoting-marketing/seo/find-site-map
+https://help.shopify.com/en/manual/promoting-marketing/seo/editing-robots-txt

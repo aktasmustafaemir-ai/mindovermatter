@@ -1,0 +1,49 @@
+<div class="announcement"><span>{% if request.locale.iso_code == 'en' %}{{ section.settings.first_en | escape }}{% else %}{{ section.settings.first | escape }}{% endif %}</span><span>{% if request.locale.iso_code == 'en' %}{{ section.settings.second_en | escape }}{% else %}{{ section.settings.second | escape }}{% endif %}</span></div>
+<header class="site-header"><button class="menu-button" data-mom-open="MomMenu" aria-label="{{ 'accessibility.menu' | t }}"><i></i><i></i><i></i></button><nav class="desktop-nav">{% render 'mom-nav', menu: section.settings.menu %}</nav><a class="brand" href="{{ routes.root_url }}"><img src="{{ 'mom-mind-over-matter-favicon.png' | asset_url }}" width="75" height="55" alt="Mind Over Matter"></a><div class="header-actions">{% if localization.available_languages.size > 1 %}{% form 'localization', id: 'MomLanguage' %}<div class="lang-switch">{% for language in localization.available_languages %}<button name="locale_code" value="{{ language.iso_code }}" type="submit" {% if language.iso_code == localization.language.iso_code %}class="active"{% endif %}>{{ language.iso_code | upcase }}</button>{% endfor %}</div>{% endform %}{% endif %}{% if shop.customer_accounts_enabled %}<a class="account-icon" href="{{ routes.account_url }}" aria-label="{{ 'mom.account' | t }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="6" r="3.3"/><path d="M4 17v-1a6 6 0 0 1 12 0v1"/></svg></a>{% endif %}<a href="{{ routes.cart_url }}" data-mom-open="MomCart" aria-label="{{ 'accessibility.cart' | t }}"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 2h3l2 11h11l2-9H4M6 13l-1 2h12"/><circle cx="7" cy="18" r="1"/><circle cx="16" cy="18" r="1"/></svg><b data-mom-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</b></a></div></header>
+<dialog id="MomMenu" class="drawer left-drawer mom-dialog" aria-label="{{ 'accessibility.menu' | t }}"><button class="close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button><nav>{% render 'mom-nav', menu: section.settings.menu %}</nav>{% if shop.customer_accounts_enabled %}<a class="drawer-login" href="{{ routes.account_url }}">{{ 'mom.account' | t }}</a>{% endif %}</dialog>
+{% schema %}
+{
+  "name": "MOM Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menü"
+    },
+    {
+      "type": "text",
+      "id": "first",
+      "label": "first",
+      "default": "TÜRKİYE’NİN HER YERİNE HIZLI KARGO"
+    },
+    {
+      "type": "text",
+      "id": "first_en",
+      "label": "first_en",
+      "default": "FAST SHIPPING ACROSS TÜRKİYE"
+    },
+    {
+      "type": "text",
+      "id": "second",
+      "label": "second",
+      "default": "14 GÜN İÇİNDE KOLAY İADE VE DEĞİŞİM"
+    },
+    {
+      "type": "text",
+      "id": "second_en",
+      "label": "second_en",
+      "default": "EASY RETURNS & EXCHANGES WITHIN 14 DAYS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "MOM Header"
+    }
+  ],
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  }
+}
+{% endschema %}

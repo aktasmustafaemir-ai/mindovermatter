@@ -1,0 +1,37 @@
+<section class="mom-featured-tabs" data-featured><header><div role="tablist" aria-label="{{ 'mom.shop' | t }}">{% for block in section.blocks %}<button id="MomTab-{{ section.id }}-{{ forloop.index }}" type="button" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="MomPanel-{{ section.id }}-{{ forloop.index }}" data-feature-tab="{{ forloop.index }}" {% unless forloop.first %}tabindex="-1"{% endunless %}>{% if request.locale.iso_code == 'en' %}{{ block.settings.title_en | escape }}{% else %}{{ block.settings.title | escape }}{% endif %}</button>{% endfor %}</div><div class="mom-slider-arrows"><button type="button" data-feature-scroll="-1" aria-label="{{ 'mom.previous' | t }}">←</button><button type="button" data-feature-scroll="1" aria-label="{{ 'mom.next' | t }}">→</button></div></header>{% for block in section.blocks %}{% assign source = block.settings.collection | default: collections.all %}<div id="MomPanel-{{ section.id }}-{{ forloop.index }}" role="tabpanel" aria-labelledby="MomTab-{{ section.id }}-{{ forloop.index }}" data-feature-panel="{{ forloop.index }}" {% unless forloop.first %}hidden{% endunless %}><div class="mom-feature-track" tabindex="0">{% for product in source.products limit: 12 %}{% render 'mom-card', product: product %}{% else %}<p>{{ 'mom.coming_soon' | t }}</p>{% endfor %}</div><a class="mom-view-all" href="{{ source.url | default: routes.all_products_collection_url }}">{{ 'mom.view_all' | t }}</a></div>{% endfor %}</section>
+{% schema %}
+{
+  "name": "MOM • Featured Tabs",
+  "settings": [],
+  "presets": [
+    {
+      "name": "MOM • Featured Tabs"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Sekme",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Koleksiyon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Başlık",
+          "default": "001"
+        },
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "İngilizce başlık",
+          "default": "001"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
