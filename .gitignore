@@ -1,0 +1,11 @@
+# Local credentials; keep example files available for development.
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Local Shopify CLI state, dependencies and logs.
+.shopify/
+node_modules/
+*.log
+.DS_Store

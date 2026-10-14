@@ -21,10 +21,16 @@
 
 {%- liquid
   assign mom_brand = 'Mind Over Matter'
-  assign og_title = page_title | default: mom_brand
+  assign seo_title = page_title
+  assign seo_description = page_description
+  if request.page_type == 'index'
+    assign seo_title = settings.mom_home_seo_title | default: 'Mind Over Matter | Oversize Hoodie ve Eşofman'
+    assign seo_description = settings.mom_home_seo_description | default: 'Mind Over Matter Drop 001 koleksiyonunu keşfet. 350 GSM pamuklu oversize hoodie ve eşofman altları, işlemeli detaylar ve rahat kalıplar.'
+  endif
+  assign og_title = seo_title | default: mom_brand
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: mom_brand
+  assign og_description = seo_description | default: shop.description | default: mom_brand
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -56,7 +62,7 @@
   content="{{ og_description | escape }}"
 >
 
-{%- if page_image -%}
+{%- if page_image and request.page_type != 'index' -%}
   <meta
     property="og:image"
     content="http:{{ page_image | image_url }}"
@@ -73,6 +79,25 @@
     property="og:image:height"
     content="{{ page_image.height }}"
   >
+{%- endif -%}
+
+{%- if request.page_type == 'index' -%}
+  {%- liquid
+    if settings.mom_home_social_image != blank
+      assign home_social_image = settings.mom_home_social_image | image_url: width: 1200
+    elsif page_image
+      assign home_social_image = page_image | image_url: width: 1200
+    else
+      assign home_social_image = 'mom-live-hero.jpg' | asset_url
+    endif
+    assign image_prefix = home_social_image | slice: 0, 2
+    if image_prefix == '//'
+      assign home_social_image = home_social_image | prepend: 'https:'
+    endif
+  -%}
+  <meta property="og:image" content="{{ home_social_image | escape }}">
+  <meta property="og:image:secure_url" content="{{ home_social_image | escape }}">
+  <meta name="twitter:image" content="{{ home_social_image | escape }}">
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
@@ -106,10 +131,10 @@
 >
 
 <title>
-  {{ page_title }}
+  {{ seo_title | escape }}
   {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
   {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless page_title contains mom_brand %} &ndash; {{ mom_brand }}{% endunless -%}
+  {%- unless seo_title contains mom_brand %} &ndash; {{ mom_brand }}{% endunless -%}
 </title>
 
 <link
@@ -117,9 +142,9 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
+{% if seo_description %}
   <meta
     name="description"
-    content="{{ page_description | escape }}"
+    content="{{ seo_description | escape }}"
   >
 {% endif %}

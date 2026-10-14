@@ -102,9 +102,9 @@
         "benefit0": {
           "type": "benefit",
           "settings": {
-            "title": "5 İŞ GÜNÜ İÇİNDE KARGODA",
+            "title": "2 İŞ GÜNÜ İÇİNDE KARGODA",
             "text": "TÜRKİYE TESLİMATI 1–4 İŞ GÜNÜ",
-            "title_en": "SHIPS WITHIN 5 BUSINESS DAYS",
+            "title_en": "SHIPS WITHIN 2 BUSINESS DAYS",
             "text_en": "TÜRKİYE DELIVERY 1–4 BUSINESS DAYS"
           }
         },

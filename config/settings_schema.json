@@ -33,6 +33,29 @@
     ]
   },
   {
+    "name": "Ana sayfa SEO",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mom_home_seo_title",
+        "label": "SEO başlığı",
+        "default": "Mind Over Matter | Oversize Hoodie ve Eşofman"
+      },
+      {
+        "type": "textarea",
+        "id": "mom_home_seo_description",
+        "label": "SEO açıklaması",
+        "default": "Mind Over Matter Drop 001 koleksiyonunu keşfet. 350 GSM pamuklu oversize hoodie ve eşofman altları, işlemeli detaylar ve rahat kalıplar."
+      },
+      {
+        "type": "image_picker",
+        "id": "mom_home_social_image",
+        "label": "Sosyal paylaşım görseli",
+        "info": "Boş bırakılırsa Drop 001 açılış görseli kullanılır."
+      }
+    ]
+  },
+  {
     "name": "Google Search Console",
     "settings": [
       {
