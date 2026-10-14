@@ -8,11 +8,11 @@
     {% if section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '750,1100,1500,2000,2400', sizes: '100vw', fetchpriority: 'high', class: 'mom-hero-image' }}
     {% else %}
-      <img src="{{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }}" srcset="{{ 'mom-live-hero.jpg' | asset_img_url: '1000x' }} 1000w, {{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }} 1600w, {{ 'mom-live-hero.jpg' | asset_img_url: '2000x' }} 2000w" sizes="100vw" width="2000" height="2667" alt="Mind Over Matter — Drop 001" fetchpriority="high" class="mom-hero-image">
+      <img src="{{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }}" srcset="{{ 'mom-live-hero.jpg' | asset_img_url: '1000x' }} 1000w, {{ 'mom-live-hero.jpg' | asset_img_url: '1600x' }} 1600w, {{ 'mom-live-hero.jpg' | asset_img_url: '2000x' }} 2000w" sizes="100vw" width="2000" height="2667" alt="Mind Over Matter — Drop 01" fetchpriority="high" class="mom-hero-image">
     {% endif %}
   </picture>
   <div class="hero-shade"></div><div class="hero-copy">
-    <p class="mom-eyebrow">MIND OVER MATTER / 001</p>
+    <p class="mom-eyebrow">MIND OVER MATTER / 01</p>
     <h1>{{ section.settings.heading | escape }}</h1>
     <p class="mom-hero-description">{% if request.locale.iso_code == 'en' %}{{ section.settings.description_en | escape }}{% else %}{{ section.settings.description | escape }}{% endif %}</p>
     <a class="hero-cta" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{% if request.locale.iso_code == 'en' %}{{ section.settings.button_en | escape }}{% else %}{{ section.settings.button | escape }}{% endif %}</a>
@@ -36,7 +36,7 @@
       "type": "text",
       "id": "heading",
       "label": "Başlık",
-      "default": "DROP 001."
+      "default": "DROP 01."
     },
     {
       "type": "text",
@@ -60,7 +60,7 @@
       "type": "text",
       "id": "button_en",
       "label": "Buton — İngilizce",
-      "default": "SHOP 001"
+      "default": "SHOP 01"
     },
     {
       "type": "url",

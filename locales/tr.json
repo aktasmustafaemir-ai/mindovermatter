@@ -365,7 +365,7 @@
     "timer_note": "Bu sayaç stok ayırmaz veya ödeme süresini sınırlamaz.",
     "cart": "Sepet",
     "empty_cart": "SEPETİN BOŞ",
-    "cart_prompt": "DROP 001 koleksiyonunu keşfet.",
+    "cart_prompt": "DROP 01 koleksiyonunu keşfet.",
     "remove": "Ürünü kaldır",
     "subtotal": "Ara toplam",
     "checkout": "ÖDEMEYE GEÇ",

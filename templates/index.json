@@ -3,7 +3,7 @@
     "mom_hero": {
       "type": "mom-hero",
       "settings": {
-        "heading": "DROP 001.",
+        "heading": "DROP 01.",
         "button": "KOLEKSİYONU KEŞFET",
         "button_en": "EXPLORE THE COLLECTION",
         "description": "350 GSM pamuk. Oversize kalıp. İşlemeli detaylar.",
@@ -16,7 +16,7 @@
         "collection": "all",
         "limit": 4,
         "show_heading": true,
-        "heading": "DROP 001"
+        "heading": "DROP 01"
       }
     },
     "mom_editorial": {
@@ -77,8 +77,8 @@
         "drop": {
           "type": "collection",
           "settings": {
-            "title": "001",
-            "title_en": "001",
+            "title": "01",
+            "title_en": "01",
             "collection": "all"
           }
         },

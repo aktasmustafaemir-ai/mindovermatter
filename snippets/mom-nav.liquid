@@ -3,7 +3,7 @@
     {% assign nav_title = link.title %}
     {% assign nav_key = link.title | downcase | strip %}
     {% case nav_key %}
-      {% when '01', '001' %}{% assign nav_title = 'DROP 001' %}
+      {% when '01', '001', 'drop 001', 'drop 01' %}{% assign nav_title = 'DROP 01' %}
       {% when 'shop', 'store', 'all products', 'products', 'mağaza' %}{% assign nav_title = 'MAĞAZA' %}
       {% when 'contact', 'contact us', 'iletişim' %}{% assign nav_title = 'İLETİŞİM' %}
       {% when 'about', 'about us', 'hakkımızda' %}{% assign nav_title = 'HAKKIMIZDA' %}
@@ -12,7 +12,7 @@
     <a href="{{ link.url }}">{{ nav_title | escape }}</a>
   {% endfor %}
 {% else %}
-  <a href="{{ collections['001'].url | default: routes.all_products_collection_url }}">DROP 001</a>
+  <a href="{{ collections['001'].url | default: routes.all_products_collection_url }}">DROP 01</a>
   <a href="{{ routes.all_products_collection_url }}">{{ 'mom.shop' | t }}</a>
   {% if pages.contact != blank %}<a href="{{ pages.contact.url }}">{{ 'mom.contact' | t }}</a>{% endif %}
 {% endif %}

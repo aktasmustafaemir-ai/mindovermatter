@@ -4,7 +4,7 @@ Ana sayfa, aynı dört ürünü tekrar tekrar göstermeden koleksiyonun malzemes
 
 ## Ana sayfa
 
-Aktif sıralama: açılış → Drop 001 ürünleri → doku ve detay → kombini tamamla → kargo/iade bilgileri. Önceki editorial, sekmeler, Instagram ve ikinci katalog bölümleri JSON şablonunda korunmuş, devre dışı bırakılmıştır. Tema düzenleyicisinden yeniden etkinleştirilebilirler.
+Aktif sıralama: açılış → Drop 01 ürünleri → doku ve detay → kombini tamamla → kargo/iade bilgileri. Önceki editorial, sekmeler, Instagram ve ikinci katalog bölümleri JSON şablonunda korunmuş, devre dışı bırakılmıştır. Tema düzenleyicisinden yeniden etkinleştirilebilirler.
 
 - Açılış başlığı, açıklaması ve düğmesi MOM Açılış ayarlarından değiştirilebilir.
 - Varsayılan açılış fotoğrafı farklı cihaz genişliklerinde Shopify CDN tarafından boyutlandırılır. Görseli temanın resim seçicisi üzerinden değiştirmek de desteklenir.
