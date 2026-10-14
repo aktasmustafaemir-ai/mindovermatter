@@ -4,7 +4,9 @@
 -%}
 {%- if request.locale.iso_code == 'tr' and mom_currency == 'TRY' -%}
   {%- capture mom_raw -%}{{ mom_amount | money_without_currency }}{%- endcapture -%}
-  {{- mom_raw | strip | replace: ',', 'MOMSEP' | replace: '.', ',' | replace: 'MOMSEP', '.' -}} TL
+  {{- mom_raw | strip | replace: ',', 'MOMSEP' | replace: '.', ',' | replace: 'MOMSEP', '.' }} TL
+{%- elsif mom_currency == 'TRY' -%}
+  {{- mom_amount | money_without_currency }} TL
 {%- else -%}
   {{- mom_amount | money -}}
 {%- endif -%}
