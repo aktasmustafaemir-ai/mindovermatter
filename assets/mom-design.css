@@ -1,9 +1,20 @@
 /* Shared storefront spacing and typography. Loaded after the legacy styles. */
 :root {
+  --mom-page: #fff;
+  --cream: #fff;
   --mom-space: clamp(20px, 4.2vw, 64px);
   --mom-content: 1440px;
   --mom-muted: #595955;
   --mom-border: #d8d8d2;
+}
+html, body,
+.product-page, .product-header, .product-main-media, .product-thumbs button,
+.product-image, .recommendations figure,
+.collection-page, .search-page, .contact-faq, .account-page,
+.reviews, .review-widget article, .mom-product-reviews,
+.mom-live-footer, .mom-reference-footer,
+.mom-zoom-dialog, .size-guide-modal aside {
+  background: #fff;
 }
 .mom-eyebrow { margin: 0 0 20px; font-size: 11px; font-weight: 700; letter-spacing: .14em; line-height: 1.5; text-transform: uppercase; }
 .mom-section-description { max-width: 440px; margin: 18px 0 0; font-size: 16px; line-height: 1.65; font-weight: 400; color: var(--mom-muted); }
@@ -32,7 +43,7 @@
 .mom-catalog-strip .section-heading h2 { margin: 0; font-size: clamp(30px, 3.5vw, 48px); font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
 .mom-catalog-strip .section-heading .mom-section-description { margin-top: 12px; }
 .mom-live-grid, .collection-grid { gap: 32px 20px; }
-.mom-live-card .mom-card-media, .collection-grid .mom-card-media { aspect-ratio: 4 / 5; }
+.mom-live-card .mom-card-media, .collection-grid .mom-card-media { aspect-ratio: 4 / 5; background: #fff; }
 .mom-live-card .mom-card-media img.primary-image { object-fit: contain; }
 .mom-live-card .mom-card-copy { padding-top: 16px; }
 .mom-live-card h3 { font-size: 15px; line-height: 1.35; margin: 0 0 5px; letter-spacing: 0; }
@@ -40,7 +51,7 @@
 .mom-live-card .mom-card-copy p { font-size: 15px; line-height: 1.55; font-weight: 500; }
 .mom-live-card s { font-size: 13px; color: var(--mom-muted); margin-left: 5px; }
 .mom-live-card .sold-badge { font-size: 11px; padding: 6px 10px; }
-.mom-craft { display: grid; grid-template-columns: 1fr 1fr; background: #e9e9e3; }
+.mom-craft { display: grid; grid-template-columns: 1fr 1fr; background: #fff; }
 .mom-craft-media { min-width: 0; }
 .mom-craft-media img { display: block; width: 100%; height: 100%; max-height: 800px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; }
 .mom-craft-copy { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 64px clamp(32px, 5vw, 80px); }
@@ -54,7 +65,7 @@
 .mom-set-intro { min-width: 0; }
 .mom-set-note { font-size: 12px; line-height: 1.6; color: var(--mom-muted); max-width: 320px; margin: 24px 0 0; }
 .mom-set-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-width: 0; }
-.mom-benefits { max-width: none; background: #efefe9; border-top: 1px solid var(--mom-border); border-bottom: 1px solid var(--mom-border); padding: 32px var(--mom-space); gap: 24px; }
+.mom-benefits { max-width: none; background: #fff; border-top: 1px solid var(--mom-border); border-bottom: 1px solid var(--mom-border); padding: 32px var(--mom-space); gap: 24px; }
 .mom-benefits > div + div { border-left: 1px solid var(--mom-border); }
 .mom-benefits h3 { font-size: 13px; line-height: 1.5; letter-spacing: .025em; margin-bottom: 6px; }
 .mom-benefits p { font-size: 12px; letter-spacing: .015em; line-height: 1.6; }
@@ -224,7 +235,7 @@ dialog.discount-popup-layer { display: grid; place-items: center; padding: 20px;
   html { scroll-behavior: auto; }
   .mom-live-card .mom-card-media img { transition: none; }
 }
-.mom-restock{margin:22px 0;padding:22px;border:1px solid #d7d7d7;background:#fafafa}
+.mom-restock{margin:22px 0;padding:22px;border:1px solid #d7d7d7;background:#fff}
 .mom-restock[hidden]{display:none}
 .mom-restock h2{margin:0 0 12px;font-size:18px;font-weight:600;line-height:1.3}
 .mom-restock-variant{margin:0 0 18px;font-size:14px}
