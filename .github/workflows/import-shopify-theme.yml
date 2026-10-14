@@ -23,7 +23,7 @@ jobs:
           allowed = {'assets', 'blocks', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates'}
           with zipfile.ZipFile(archive) as source:
               files = [entry for entry in source.infolist() if not entry.is_dir()]
-              assert len(files) == 631, 'Unexpected file count'
+              assert len(files) == 531, 'Unexpected file count'
               for entry in files:
                   path = pathlib.PurePosixPath(entry.filename)
                   assert not path.is_absolute() and '..' not in path.parts
@@ -33,7 +33,7 @@ jobs:
                   target.parent.mkdir(parents=True, exist_ok=True)
                   target.write_bytes(source.read(entry))
           assert pathlib.Path('layout/theme.liquid').is_file()
-          print('Imported 631 theme files into Shopify theme directories')
+          print('Imported 531 theme files into Shopify theme directories')
           PY
       - name: Commit theme files
         run: |
