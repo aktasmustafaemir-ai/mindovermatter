@@ -1,0 +1,30 @@
+{% doc %}
+  Sends a variant-specific stock request through Shopify's native contact form.
+  The merchant handles replies; this does not send automated stock alerts.
+  @param {product} product - The product being requested.
+  @param {variant} selected - The currently selected variant.
+{% enddoc %}
+<section class="mom-restock" data-restock data-product-title="{{ product.title | escape }}" data-product-url="{{ shop.url }}{{ product.url }}" aria-labelledby="MomRestockTitle"{% if selected.available %} hidden{% endif %}>
+  <h2 id="MomRestockTitle">{% if request.locale.iso_code == 'en' %}Notify me when back in stock{% else %}Stok gelince haber ver{% endif %}</h2>
+  {% form 'contact', id: 'MomRestockForm' %}
+    {% if form.posted_successfully? %}
+      <p class="mom-restock-status" role="status" tabindex="-1" data-restock-response="success">{% if request.locale.iso_code == 'en' %}Your request has been received. Our team will email you when this item is back in stock.{% else %}Talebin alındı. Ürün yeniden stokta olduğunda ekibimiz sana e-posta ile dönüş yapacak.{% endif %}</p>
+    {% else %}
+      {% if form.errors %}<div role="alert" tabindex="-1" data-restock-response="error">{{ form.errors | default_errors }}</div>{% endif %}
+      <p class="mom-restock-variant" data-restock-variant>{{ product.title | escape }} · {{ selected.title | escape }}</p>
+      <input type="hidden" name="contact[request_type]" value="Stok bildirimi talebi">
+      <input type="hidden" name="contact[product]" value="{{ product.title | escape }}">
+      <input type="hidden" name="contact[variant]" value="{{ selected.title | escape }}" data-restock-option>
+      <input type="hidden" name="contact[variant_id]" value="{{ selected.id }}" data-restock-id>
+      <input type="hidden" name="contact[product_url]" value="{{ shop.url }}{{ product.url }}?variant={{ selected.id }}" data-restock-url>
+      <input type="hidden" name="contact[body]" value="Stok bildirimi talebi: {{ product.title | escape }} / {{ selected.title | escape }}. Varyant: {{ selected.id }}. {{ shop.url }}{{ product.url }}?variant={{ selected.id }}" data-restock-body>
+      <label for="MomRestockEmail">{% if request.locale.iso_code == 'en' %}Email address{% else %}E-posta adresin{% endif %}</label>
+      <div class="mom-restock-fields">
+        <input id="MomRestockEmail" type="email" name="contact[email]" value="{{ form.email | default: customer.email | escape }}" autocomplete="email" required aria-describedby="MomRestockPrivacy"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}>
+        <button type="submit">{% if request.locale.iso_code == 'en' %}Send request{% else %}Talep gönder{% endif %}</button>
+      </div>
+      <p class="mom-restock-note">{% if request.locale.iso_code == 'en' %}Your request goes to our team. We will reply by email when stock is replenished.{% else %}Talebin ekibimize iletilir. Stok yenilendiğinde e-posta ile dönüş yaparız.{% endif %}</p>
+      <p id="MomRestockPrivacy" class="mom-restock-privacy">{% if request.locale.iso_code == 'en' %}We use your email for this stock request. <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>{% else %}E-posta adresini bu stok talebi için kullanırız. <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Gizlilik politikası</a>{% endif %}</p>
+    {% endif %}
+  {% endform %}
+</section>

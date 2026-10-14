@@ -14,7 +14,7 @@
         "type": "textarea",
         "id": "mom_contact_address",
         "label": "Açık adres",
-        "default": "İTÜ Ayazağa Kampüsü, Sarıyer / İstanbul",
+        "default": "İTÜ Ayazağa Kampüsü, Reşitpaşa, Sarıyer / İstanbul",
         "info": "Gerçek işletme adresinizi bina/ofis, mahalle, ilçe, il ve posta kodu ile tamamlayın."
       },
       {

@@ -5,6 +5,7 @@
 <label class="mom-variant-fallback" for="MomVariantId">{{ 'mom.variant' | t }}</label><select class="mom-variant-fallback" name="id" id="MomVariantId">{% for variant in product.variants %}<option value="{{ variant.id }}" {% if selected.id == variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>{{ variant.title | escape }} — {% render 'mom-money', amount: variant.price %}</option>{% endfor %}</select>
 <div class="mom-option-groups" hidden>{% unless product.has_only_default_variant %}{% for option in product.options_with_values %}{% assign position = forloop.index0 %}{% assign name_downcase = option.name | downcase %}{% assign is_color = false %}{% if name_downcase == 'color' or name_downcase == 'colour' or name_downcase == 'renk' %}{% assign is_color = true %}{% endif %}<fieldset class="mom-option-group" data-option-group="{{ position }}"><legend>{{ option.name | escape }} : <span data-option-label>{{ option.selected_value | escape }}</span></legend>{% if name_downcase == 'size' or name_downcase == 'beden' %}<button class="mom-size-link" type="button" data-mom-open="MomSizeGuide">{{ 'mom.size_guide' | t }}</button>{% endif %}<div class="size-options{% if is_color %} mom-color-options{% endif %}">{% for value in option.values %}<label class="mom-variant{% if value == option.selected_value %} selected{% endif %}{% if is_color %} mom-color-swatch{% endif %}"><input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" data-option-position="{{ position }}" {% if value == option.selected_value %}checked{% endif %}>{% if is_color %}{% assign color_name = value | downcase %}{% assign swatch_color = '#c7c7c7' %}{% case color_name %}{% when 'black', 'siyah' %}{% assign swatch_color = '#000000' %}{% when 'white', 'beyaz' %}{% assign swatch_color = '#ffffff' %}{% when 'gray', 'grey', 'gri', 'heather gray' %}{% assign swatch_color = '#a6a6a6' %}{% when 'navy', 'lacivert' %}{% assign swatch_color = '#182949' %}{% when 'brown', 'kahverengi' %}{% assign swatch_color = '#574033' %}{% when 'blue', 'mavi' %}{% assign swatch_color = '#7ca6c6' %}{% when 'pink', 'pembe' %}{% assign swatch_color = '#e0b0ba' %}{% endcase %}<span class="mom-swatch-fill" style="--swatch-color:{{ value.swatch.color | default: swatch_color }};{% if value.swatch.image %}background-image:url({{ value.swatch.image | image_url: width: 100 }}){% endif %}" aria-hidden="true"></span><span class="visually-hidden">{{ value | escape }}</span>{% else %}<span>{{ value | escape }}</span>{% endif %}</label>{% endfor %}</div></fieldset>{% endfor %}{% endunless %}</div>
 <label class="quantity-label" for="MomQuantity">{{ 'mom.quantity' | t }}</label><div class="quantity-control"><button type="button" data-product-quantity="-1" aria-label="{{ 'accessibility.decrease_quantity' | t }}">−</button><input id="MomQuantity" name="quantity" type="number" min="{{ selected.quantity_rule.min | default: 1 }}" step="{{ selected.quantity_rule.increment | default: 1 }}" value="{{ selected.quantity_rule.min | default: 1 }}" {% if selected.quantity_rule.max %}max="{{ selected.quantity_rule.max }}"{% endif %}><button type="button" data-product-quantity="1" aria-label="{{ 'accessibility.increase_quantity' | t }}">+</button></div><div class="mom-buy-actions"><button class="add-to-cart" type="submit" data-submit {% unless selected.available %}disabled{% endunless %}>{% if selected.available %}{{ 'mom.add_to_cart' | t }}{% else %}{{ 'mom.sold_out' | t }}{% endif %}</button><p class="mom-error" data-product-error role="alert"></p>{% if section.settings.dynamic_checkout %}<div class="mom-dynamic-checkout"{% unless selected.available %} hidden{% endunless %}>{{ form | payment_button }}</div>{% endif %}</div>{% endform %}
+{% render 'mom-restock-request', product: product, selected: selected %}
 <div class="mom-product-help">
   <p class="shipping-note">{{ section.settings.shipping | default: '' | escape }}{% if section.settings.shipping == blank %}{{ 'mom.shipping_dispatch' | t }}{% endif %}</p>
   <button type="button" data-mom-open="MomSizeGuide">{{ 'mom.size_guide' | t }}<span aria-hidden="true">↗</span></button>
@@ -95,12 +96,12 @@
 
 <dialog id="MomSizeGuide" class="size-guide-modal mom-dialog" aria-labelledby="MomSizeTitle"><button class="size-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button><aside><header><h2 id="MomSizeTitle">{{ 'mom.size_guide' | t }}</h2><button data-mom-close aria-label="{{ 'actions.close' | t }}">×</button></header><div>{% assign chart = product.metafields.custom.size_chart.value | default: section.settings.size_chart %}{% if chart != blank %}{{ chart | image_url: width: 1200 | image_tag: class: 'guide-image' }}{% elsif section.settings.size_text != blank %}{{ section.settings.size_text }}{% else %}{% render 'mom-size-guide', product: product %}{% endif %}</div></aside></dialog>
 
-{% assign review_count = 0 %}{% assign review_total = 0 %}{% for block in section.blocks %}{% if block.type == 'review' %}{% assign review_count = review_count | plus: 1 %}{% assign review_total = review_total | plus: block.settings.rating %}{% endif %}{% endfor %}
+{% assign review_count = 0 %}{% assign review_total = 0 %}{% for block in section.blocks %}{% if block.type == 'review' and block.settings.product.id == product.id and block.settings.author != blank and block.settings.text != blank %}{% assign review_count = review_count | plus: 1 %}{% assign review_total = review_total | plus: block.settings.rating %}{% endif %}{% endfor %}
 {% if review_count > 0 %}
   <section class="mom-product-reviews">
     <header><h2>{{ 'mom.product_reviews' | t }}</h2><p><strong>{{ review_total | times: 1.0 | divided_by: review_count | round: 1 }}</strong> · {{ review_count }} {{ 'mom.reviews_count' | t }}</p></header>
     <div class="mom-product-review-list">
-      {% for block in section.blocks %}{% if block.type == 'review' %}
+      {% for block in section.blocks %}{% if block.type == 'review' and block.settings.product.id == product.id and block.settings.author != blank and block.settings.text != blank %}
         <article {{ block.shopify_attributes }}>
           <div class="mom-review-stars" aria-label="{{ block.settings.rating }} / 5">{% for i in (1..5) %}<span{% if i > block.settings.rating %} class="is-empty"{% endif %}>★</span>{% endfor %}</div>
           <div class="mom-review-author"><span>{{ block.settings.author | slice: 0, 1 | escape }}</span><strong>{{ block.settings.author | escape }}{% if block.settings.age != blank %}, {{ block.settings.age | escape }}{% endif %}</strong></div>
@@ -173,8 +174,14 @@
     {
       "type": "review",
       "name": "Müşteri yorumu",
-      "limit": 8,
+      "limit": 32,
       "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Yorumun ait olduğu ürün",
+          "info": "Yorum yalnızca seçilen üründe görünür. Müşterinin gönderdiği metni ve yayımlanmasına izin verdiği ismi kullanın. Ürün seçilmeden yorum gösterilmez."
+        },
         {
           "type": "text",
           "id": "author",
