@@ -16,7 +16,7 @@ Aktif sıralama: açılış → Drop 01 ürünleri → doku ve detay → kombini
 
 Ürün sayfasında kalıp notu, beden yardımı ve iki iş günü kargo açıklaması görünür. Ürün yönetiminde `custom.model_info` metafield'ı doldurulursa beden/kalıp bölümünde gösterilir; model boyu veya bedeni varsayılmaz. Kargo/iade alanında kısa özet ve ilgili politikalara bağlantı bulunur. Yorum puanı mevcut blokların puan ortalamasından hesaplanır; yorumların gerçekliği bu değişiklikle doğrulanmaz.
 
-İletişim sayfasında mobilde büyük kapak fotoğrafı kaldırılmış, iletişim bilgileri ve etiketli form öne alınmıştır. Telefon, e-posta ve adres ortak tema ayarlarından gelir. Footer yalnızca `shop.enabled_payment_types` içinde yer alan ödeme yöntemlerini gösterir. Gerçek işletme açık adresi ve Shopify Admin politikaları ayrıca yönetilmelidir.
+İletişim sayfasında fotoğraf sabit yükseklikle kırpılmaz; kendi oranında bütünüyle gösterilir. Masaüstünde iletişim bilgileri ve fotoğraf sol sütunda, etiketli form sağ sütundadır. Mobilde iletişim bilgileri ve formun ardından tam fotoğraf görünür. Tema düzenleyicisinden özel masaüstü ve mobil görsel seçilebilir. Formda zorunlu alan açıklaması, gizlilik bağlantısı, görünür klavye odağı ve Shopify yanıtına bağlı başarı/hata durumları bulunur. Telefon, e-posta ve adres ortak tema ayarlarından gelir. Footer yalnızca `shop.enabled_payment_types` içinde yer alan ödeme yöntemlerini gösterir. Gerçek işletme açık adresi ve Shopify Admin politikaları ayrıca yönetilmelidir.
 
 ## İndirim formu
 

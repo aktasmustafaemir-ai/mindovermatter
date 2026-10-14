@@ -1,44 +1,56 @@
-<section class="contact-hero mom-contact-hero">
-  <div class="mom-contact-hero-copy">
+<section class="mom-contact-page" aria-labelledby="MomContactTitle">
+  <header class="mom-contact-header">
     <p class="mom-eyebrow">MIND OVER MATTER / {% if request.locale.iso_code == 'en' %}CONTACT{% else %}İLETİŞİM{% endif %}</p>
-    <h1>{{ 'mom.contact_title' | t }}</h1>
+    <h1 id="MomContactTitle">{{ 'mom.contact_title' | t }}</h1>
     <p>{% if request.locale.iso_code == 'en' %}Need help with a size, product or order? Get in touch.{% else %}Beden, ürün veya siparişiniz hakkında bir sorunuz mu var? Bize ulaşın.{% endif %}</p>
-  </div>
-  <picture>
-    {% if section.settings.image %}
-      {{ section.settings.image | image_url: width: 1000 | image_tag: widths: '400,700,1000', sizes: '(min-width: 750px) 35vw, 100vw', loading: 'lazy', alt: 'Mind Over Matter' }}
-    {% else %}
-      <img src="{{ 'mom-contact-desktop.jpg' | asset_img_url: '700x' }}" width="700" height="933" alt="Mind Over Matter" loading="lazy">
-    {% endif %}
-  </picture>
-</section>
+  </header>
 <div class="mom-contact-layout">
-  <section class="mom-contact-details">
-    <h2>{{ 'mom.contact' | t }}</h2>
+  <section class="mom-contact-details" aria-labelledby="MomContactDetailsTitle">
+    <p class="mom-eyebrow">01 / {% if request.locale.iso_code == 'en' %}CONTACT DETAILS{% else %}İLETİŞİM BİLGİLERİ{% endif %}</p>
+    <h2 id="MomContactDetailsTitle">{% if request.locale.iso_code == 'en' %}Talk to us{% else %}Bize ulaşın{% endif %}</h2>
     {% render 'mom-contact-info' %}
     <p class="mom-contact-tip">{% if request.locale.iso_code == 'en' %}For an existing order, include your order number so we can help you.{% else %}Mevcut bir sipariş için yazıyorsanız sipariş numaranızı da ekleyin.{% endif %}</p>
   </section>
-  <section class="contact-section" aria-label="{{ 'mom.contact' | t }}">
+  <section class="contact-section" aria-labelledby="MomContactFormTitle">
+    <p class="mom-eyebrow">02 / {% if request.locale.iso_code == 'en' %}SEND A MESSAGE{% else %}MESAJ GÖNDERİN{% endif %}</p>
+    <h2 id="MomContactFormTitle">{% if request.locale.iso_code == 'en' %}How can we help?{% else %}Nasıl yardımcı olabiliriz?{% endif %}</h2>
     {% form 'contact', id: 'MomContact' %}
       {% if form.posted_successfully? %}
-        <div class="form-success" role="status"><h2>{{ 'mom.thanks' | t }}</h2></div>
+        <div class="form-success" role="status"><h3>{{ 'mom.thanks' | t }}</h3><p>{% if request.locale.iso_code == 'en' %}Your message has been received. Our team will reply to the email address you provided.{% else %}Mesajınız alındı. Ekibimiz belirttiğiniz e-posta adresine dönüş yapacak.{% endif %}</p></div>
       {% else %}
-        {{ form.errors | default_errors }}
+        {% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+        <p class="mom-contact-required">{% if request.locale.iso_code == 'en' %}Fields marked * are required.{% else %}* işaretli alanlar zorunludur.{% endif %}</p>
         <label for="MomContactName">{{ 'mom.name' | t }} <span aria-hidden="true">*</span></label>
-        <input id="MomContactName" name="contact[name]" required autocomplete="name">
+        <input id="MomContactName" name="contact[name]" value="{{ form.name | default: customer.name | escape }}" required autocomplete="name">
         <div class="mom-contact-field-row">
-          <div><label for="MomContactEmail">{{ 'mom.email' | t }} <span aria-hidden="true">*</span></label><input id="MomContactEmail" name="contact[email]" type="email" required autocomplete="email"></div>
-          <div><label for="MomContactPhone">{{ 'mom.phone' | t }}</label><input id="MomContactPhone" name="contact[phone]" type="tel" autocomplete="tel"></div>
+          <div><label for="MomContactEmail">{{ 'mom.email' | t }} <span aria-hidden="true">*</span></label><input id="MomContactEmail" name="contact[email]" type="email" value="{{ form.email | default: customer.email | escape }}" required autocomplete="email"{% if form.errors contains 'email' %} aria-invalid="true"{% endif %}></div>
+          <div><label for="MomContactPhone">{{ 'mom.phone' | t }}</label><input id="MomContactPhone" name="contact[phone]" type="tel" value="{{ form.phone | escape }}" autocomplete="tel"></div>
         </div>
         <label for="MomContactOrder">{{ 'mom.order_number' | t }}</label>
         <input id="MomContactOrder" name="contact[order_number]">
         <label for="MomContactMessage">{{ 'mom.message' | t }} <span aria-hidden="true">*</span></label>
-        <textarea id="MomContactMessage" name="contact[body]" rows="6" required></textarea>
+        <textarea id="MomContactMessage" name="contact[body]" rows="6" required>{{ form.body | escape }}</textarea>
+        <p class="mom-contact-privacy">{% if request.locale.iso_code == 'en' %}We use the information you provide to respond to your message. <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy policy</a>{% else %}Paylaştığınız bilgileri mesajınıza yanıt vermek için kullanırız. <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Gizlilik politikası</a>{% endif %}</p>
         <button type="submit">{{ 'mom.send' | t }}<span aria-hidden="true">↗</span></button>
       {% endif %}
     {% endform %}
   </section>
+  <figure class="mom-contact-photo">
+    <picture>
+      {% if section.settings.mobile_image %}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.mobile_image | image_url: width: 400 }} 400w, {{ section.settings.mobile_image | image_url: width: 700 }} 700w, {{ section.settings.mobile_image | image_url: width: 1000 }} 1000w" sizes="calc(100vw - 40px)">
+      {% endif %}
+      {% if section.settings.image %}
+        {% assign contact_image_alt = section.settings.image.alt | default: 'Mind Over Matter Drop 01' %}
+        {{ section.settings.image | image_url: width: 1000 | image_tag: widths: '400,700,1000', sizes: '(min-width: 750px) 40vw, calc(100vw - 40px)', loading: 'lazy', alt: contact_image_alt }}
+      {% else %}
+        <img src="{{ 'mom-contact-desktop.jpg' | asset_img_url: '700x' }}" srcset="{{ 'mom-contact-desktop.jpg' | asset_img_url: '400x' }} 400w, {{ 'mom-contact-desktop.jpg' | asset_img_url: '700x' }} 700w, {{ 'mom-contact-desktop.jpg' | asset_img_url: '1000x' }} 1000w" sizes="(min-width: 750px) 40vw, calc(100vw - 40px)" width="3024" height="4032" alt="Mind Over Matter Drop 01 siyah ve gri oversize takımlar" loading="lazy">
+      {% endif %}
+    </picture>
+    <figcaption>MIND OVER MATTER / DROP 01</figcaption>
+  </figure>
 </div>
+</section>
 {% schema %}
 {
   "name": "MOM Contact",
@@ -46,7 +58,7 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Kapak görseli"
+      "label": "İletişim görseli"
     }
   ],
   "presets": [

@@ -141,30 +141,48 @@ dialog.discount-popup-layer { display: grid; place-items: center; padding: 20px;
 .discount-email-form button, .discount-shop { display: flex; justify-content: space-between; align-items: center; width: 100%; height: auto; min-height: 50px; padding: 12px 18px; font-size: 12px; letter-spacing: .05em; }
 .discount-decline { display: block; min-height: 44px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin: 12px auto 0; }
 .discount-code { width: 100%; padding: 16px; margin-bottom: 16px; }
-.contact-hero.mom-contact-hero { display: grid; grid-template-columns: 1.5fr 1fr; max-width: var(--mom-content); margin: auto; height: 300px; min-height: 0; padding: 0; background: none; overflow: hidden; }
-.contact-hero > .mom-contact-hero-copy { position: static; inset: auto; background: none; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 32px var(--mom-space); }
-.contact-hero.mom-contact-hero h1 { position: static; transform: none; color: #000; font-size: clamp(36px, 4vw, 56px); margin: 0; text-align: left; white-space: normal; }
-.mom-contact-hero-copy > p:last-child { margin: 16px 0 0; max-width: 400px; font-size: 15px; line-height: 1.7; }
-.mom-contact-hero > picture { position: static; display: block; height: 100%; }
-.mom-contact-hero > picture img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
-.mom-contact-layout { display: grid; grid-template-columns: 1fr 1.65fr; gap: 64px; max-width: 1200px; margin: 0 auto; padding: 48px var(--mom-space) 64px; }
+.mom-contact-page { max-width: 1280px; margin: auto; padding: 64px var(--mom-space) 72px; background: #fff; }
+.mom-contact-header { margin-bottom: 48px; max-width: 720px; }
+.mom-contact-header h1 { font-size: clamp(40px, 4.8vw, 64px); font-weight: 800; line-height: 1.05; letter-spacing: -.035em; margin: 0; }
+.mom-contact-header > p:last-child { margin: 20px 0 0; max-width: 560px; font-size: 16px; line-height: 1.7; color: var(--mom-muted); }
+.mom-contact-layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); grid-template-areas: 'details form' 'photo form'; gap: 32px 48px; align-items: start; }
 .mom-contact-layout .mom-contact-details, .mom-contact-layout .contact-section { max-width: none; padding: 0; margin: 0; min-width: 0; background: transparent; }
-.mom-contact-details h2 { font-size: 22px; margin-bottom: 20px; }
+.mom-contact-layout .mom-contact-details { grid-area: details; padding-top: 24px; border-top: 1px solid var(--mom-border); }
+.mom-contact-layout .contact-section { grid-area: form; padding: 32px; border: 1px solid var(--mom-border); }
+.mom-contact-layout .mom-eyebrow { margin-bottom: 14px; font-size: 10px; }
+.mom-contact-details h2, .mom-contact-layout .contact-section > h2 { font-size: 24px; font-weight: 600; line-height: 1.3; margin: 0 0 24px; }
+.mom-contact-details .mom-contact-info { font-style: normal; font-size: 15px; line-height: 1.7; }
+.mom-contact-details .mom-contact-info p { margin: 0 0 12px; overflow-wrap: anywhere; }
+.mom-contact-details .mom-contact-info a { text-decoration: underline; text-underline-offset: 4px; }
 .mom-contact-tip { font-size: 14px; line-height: 1.7; color: var(--mom-muted); margin-top: 24px; }
+.mom-contact-photo { grid-area: photo; min-width: 0; margin: 0; }
+.mom-contact-photo picture { display: block; }
+.mom-contact-photo img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
+.mom-contact-photo figcaption { margin-top: 12px; font-size: 10px; letter-spacing: .1em; color: var(--mom-muted); }
 .mom-contact-layout .contact-section form { display: block; }
+.mom-contact-required { font-size: 12px; line-height: 1.5; margin: 0 0 20px; color: var(--mom-muted); }
 .mom-contact-layout .contact-section label { display: block; font-size: 12px; line-height: 1.5; margin: 0 0 8px; }
 .mom-contact-layout .contact-section input, .mom-contact-layout .contact-section textarea { width: 100%; background: #fff; padding: 12px; border: 1px solid #aaa; border-radius: 0; font-size: 16px; margin: 0 0 20px; }
+.mom-contact-layout .contact-section input:focus-visible, .mom-contact-layout .contact-section textarea:focus-visible { outline: 2px solid #111; outline-offset: 2px; }
 .mom-contact-layout .contact-section input { min-height: 48px; }
 .mom-contact-layout .contact-section textarea { resize: vertical; min-height: 150px; }
 .mom-contact-layout .contact-section .mom-contact-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .mom-contact-layout .contact-section .mom-contact-field-row > div { display: block; min-width: 0; }
-.mom-contact-layout .contact-section button { display: inline-flex; justify-content: space-between; align-items: center; gap: 40px; padding: 14px 24px; min-height: 50px; margin: 0; font-size: 12px; }
-.newsletter { padding: 40px var(--mom-space); border-top: 1px solid var(--mom-border); }
+.mom-contact-layout .contact-section button { display: inline-flex; justify-content: space-between; align-items: center; gap: 40px; width: 100%; padding: 14px 24px; min-height: 50px; margin: 0; font-size: 12px; background: #111; color: #fff; border: 1px solid #111; }
+.mom-contact-privacy { font-size: 12px; line-height: 1.6; margin: 0 0 20px; color: var(--mom-muted); }
+.mom-contact-privacy a { text-decoration: underline; text-underline-offset: 3px; }
+.mom-contact-layout .form-success h3 { font-size: 28px; margin: 0 0 16px; }
+.mom-contact-layout .form-success p { font-size: 15px; line-height: 1.7; }
+.mom-contact-layout .errors { font-size: 14px; color: #a42424; line-height: 1.6; margin-bottom: 20px; }
+.newsletter { padding: 40px var(--mom-space); border-top: 1px solid var(--mom-border); background: #fff; }
 
 @media (hover: none) {
   .mom-live-card:hover .mom-card-media .hover-image { opacity: 0; }
 }
 @media (max-width: 989px) {
+  .mom-contact-layout { gap: 28px; }
+  .mom-contact-layout .contact-section { padding: 24px; }
+  .mom-contact-layout .contact-section .mom-contact-field-row { grid-template-columns: 1fr; gap: 0; }
   .mom-craft-copy { padding: 40px 28px; }
   .mom-craft h2, .mom-set h2 { font-size: 40px; }
   .mom-set { gap: 32px; grid-template-columns: 1fr 1.5fr; }
@@ -235,11 +253,11 @@ dialog.discount-popup-layer { display: grid; place-items: center; padding: 20px;
   .discount-popup { width: 100%; max-height: calc(100dvh - 32px); }
   .discount-popup-copy { padding: 44px 24px 24px; }
   .discount-popup h2 { font-size: 44px; }
-  .contact-hero.mom-contact-hero { display: block; height: auto; }
-  .mom-contact-hero-copy { padding: 36px var(--mom-space); }
-  .contact-hero.mom-contact-hero h1 { font-size: 42px; }
-  .mom-contact-hero > picture { display: none; }
-  .mom-contact-layout { grid-template-columns: 1fr; padding: 0 var(--mom-space) 40px; gap: 32px; }
+  .mom-contact-page { padding: 40px var(--mom-space) 48px; }
+  .mom-contact-header { margin-bottom: 32px; }
+  .mom-contact-header h1 { font-size: 42px; }
+  .mom-contact-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'details' 'form' 'photo'; gap: 32px; }
+  .mom-contact-layout .contact-section { padding: 24px 18px; }
   .mom-contact-layout .contact-section .mom-contact-field-row { grid-template-columns: 1fr; gap: 0; }
   .mom-contact-layout .contact-section button { width: 100%; }
   .newsletter h2 { font-size: 24px; line-height: 1.25; }
