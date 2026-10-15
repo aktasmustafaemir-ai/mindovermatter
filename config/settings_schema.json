@@ -67,6 +67,34 @@
     ]
   },
   {
+    "name": "Ürün yapılandırılmış verisi",
+    "settings": [
+      {
+        "type": "text",
+        "id": "mom_schema_shipping_rate",
+        "label": "Standart kargo ücreti (TL)",
+        "info": "Türkiye içi 3.000 TL ve altındaki siparişlerin gerçek ücretini yazın. Örnek: 99.90. Boş veya geçersizse Google'a kargo ücreti bildirilmez. Shopify kargo ayarını değiştirmez."
+      },
+      {
+        "type": "select",
+        "id": "mom_schema_return_fees",
+        "label": "İade kargo masrafı",
+        "options": [
+          { "value": "unspecified", "label": "Ücret bilgisi henüz belirtilmedi" },
+          { "value": "customer", "label": "Müşteri öder" },
+          { "value": "free", "label": "Mağaza karşılar / ücretsiz" }
+        ],
+        "default": "unspecified"
+      },
+      {
+        "type": "text",
+        "id": "mom_schema_return_shipping_rate",
+        "label": "Müşterinin ödediği sabit iade kargo ücreti (TL)",
+        "info": "Yalnızca sabit ve doğrulanmış bir ücret varsa yazın. Değişken veya bilinmiyorsa boş bırakın; sıfır veya tahmini bir tutar girmeyin."
+      }
+    ]
+  },
+  {
     "name": "t:names.logo_and_favicon",
     "settings": [
       {

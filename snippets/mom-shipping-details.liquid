@@ -1,0 +1,35 @@
+{% doc %}
+  Outputs confirmed Türkiye shipping information as JSON or visible text.
+  No rate is inferred when the merchant has not provided a valid amount.
+  @param {variant} variant - The offer's variant.
+  @param {string} currency - The offer currency.
+  @param {string} [mode] - Use 'text' for the visible policy summary.
+{% enddoc %}
+{%- liquid
+  assign rate = settings.mom_schema_shipping_rate | strip | replace: ',', '.'
+  assign digits = rate | remove: '.'
+  assign dot_count = rate.size | minus: digits.size
+  assign remainder = digits | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9'
+  assign rate_valid = false
+  if digits != blank and remainder == blank and dot_count <= 1 and currency == 'TRY'
+    assign rate_valid = true
+  endif
+  assign rate_number = rate | plus: 0
+  assign rate_cents = rate_number | times: 100
+-%}
+{%- if rate_valid -%}
+  {%- if mode == 'text' -%}
+    <p>{% if request.locale.iso_code == 'en' %}Standard Türkiye shipping: {% else %}Türkiye içi standart kargo: {% endif %}{% render 'mom-money', amount: rate_cents %}. {% if request.locale.iso_code == 'en' %}Free standard shipping on orders over 3,000 TL.{% else %}3.000 TL üzeri siparişlerde standart kargo ücretsizdir.{% endif %}</p>
+  {%- else -%}
+    {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "TR"},
+      "shippingRate": {"@type": "MonetaryAmount", "currency": "TRY", "value": {% if variant.price > 300000 %}0{% else %}{{ rate_number | json }}{% endif %}},
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 2, "unitCode": "DAY"},
+        "transitTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 4, "unitCode": "DAY"}
+      }
+    }
+  {%- endif -%}
+{%- endif -%}
