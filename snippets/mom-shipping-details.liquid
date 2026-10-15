@@ -1,6 +1,6 @@
 {% doc %}
   Outputs confirmed Türkiye shipping information as JSON or visible text.
-  No rate is inferred when the merchant has not provided a valid amount.
+  A paid rate is never inferred. Offers of 3,000 TL or more ship free.
   @param {variant} variant - The offer's variant.
   @param {string} currency - The offer currency.
   @param {string} [mode] - Use 'text' for the visible policy summary.
@@ -16,15 +16,26 @@
   endif
   assign rate_number = rate | plus: 0
   assign rate_cents = rate_number | times: 100
+  assign free_offer = false
+  if currency == 'TRY' and variant.price >= 300000
+    assign free_offer = true
+  endif
 -%}
-{%- if rate_valid -%}
-  {%- if mode == 'text' -%}
-    <p>{% if request.locale.iso_code == 'en' %}Standard Türkiye shipping: {% else %}Türkiye içi standart kargo: {% endif %}{% render 'mom-money', amount: rate_cents %}. {% if request.locale.iso_code == 'en' %}Free standard shipping on orders over 3,000 TL.{% else %}3.000 TL üzeri siparişlerde standart kargo ücretsizdir.{% endif %}</p>
-  {%- else -%}
+{%- if mode == 'text' and currency == 'TRY' -%}
+  <p>
+    {%- if rate_valid -%}
+      {% if request.locale.iso_code == 'en' %}Standard Türkiye shipping below 3,000 TL: {% else %}3.000 TL altındaki siparişlerde Türkiye içi standart kargo: {% endif %}{% render 'mom-money', amount: rate_cents %}.
+    {%- else -%}
+      {% if request.locale.iso_code == 'en' %}For orders below 3,000 TL, the customer pays shipping. The charge is shown at checkout.{% else %}3.000 TL altındaki siparişlerde kargo ücreti müşteriye aittir. Ücret ödeme adımında gösterilir.{% endif %}
+    {%- endif %}
+    {% if request.locale.iso_code == 'en' %}Standard shipping is free on orders of 3,000 TL or more.{% else %}3.000 TL ve üzeri siparişlerde standart kargo ücretsizdir.{% endif %}
+  </p>
+{%- elsif currency == 'TRY' -%}
+  {%- if rate_valid or free_offer -%}
     {
       "@type": "OfferShippingDetails",
       "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "TR"},
-      "shippingRate": {"@type": "MonetaryAmount", "currency": "TRY", "value": {% if variant.price > 300000 %}0{% else %}{{ rate_number | json }}{% endif %}},
+      "shippingRate": {"@type": "MonetaryAmount", "currency": "TRY", "value": {% if free_offer %}0{% else %}{{ rate_number | json }}{% endif %}},
       "deliveryTime": {
         "@type": "ShippingDeliveryTime",
         "handlingTime": {"@type": "QuantitativeValue", "minValue": 0, "maxValue": 2, "unitCode": "DAY"},

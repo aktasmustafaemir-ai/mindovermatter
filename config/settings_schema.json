@@ -73,7 +73,7 @@
         "type": "text",
         "id": "mom_schema_shipping_rate",
         "label": "Standart kargo ücreti (TL)",
-        "info": "Türkiye içi 3.000 TL ve altındaki siparişlerin gerçek ücretini yazın. Örnek: 99.90. Boş veya geçersizse Google'a kargo ücreti bildirilmez. Shopify kargo ayarını değiştirmez."
+        "info": "Türkiye içi 3.000 TL altındaki siparişlerin gerçek ücretini yazın. Örnek: 99.90. Boş veya geçersizse ücretli kargo tutarı Google'a bildirilmez. 3.000 TL ve üzeri ücretsizdir. Shopify kargo ayarını değiştirmez."
       },
       {
         "type": "select",

@@ -8,12 +8,16 @@ Her teklifte Türkiye için 14 günlük iade talebi bilgisi vardır. Bu süre si
 
 Tema düzenleyicisi > Tema ayarları > **Ürün yapılandırılmış verisi**:
 
-- **Standart kargo ücreti (TL):** Türkiye'de 3.000 TL ve altındaki siparişlerin doğrulanmış ücretini girin. Nokta veya virgülle ondalık kabul edilir. Boş, negatif veya geçersiz değer Google'a ücretsiz kargo olarak gönderilmez; kargo kaydı üretilmez. Bu ayar Shopify'ın ücret tahsilatını değiştirmez.
+Mağaza sahibinin doğruladığı güncel uygulama: **3.000 TL altındaki siparişlerde müşteri kargo ücretini öder ve tutar ödeme adımında hesaplanır; 3.000 TL ve üzeri siparişlerde standart kargoyu mağaza karşılar.** Sabit ücret tanımlanmadığından standart ücret alanı boş bırakılır. Ürün sayfasındaki görünür özet bunu açıklar.
+
+- **Standart kargo ücreti (TL):** Türkiye'de 3.000 TL altındaki siparişlerin doğrulanmış ücretini girin. Nokta veya virgülle ondalık kabul edilir. Boş, negatif veya geçersiz değer Google'a ücretsiz kargo olarak gönderilmez; 3.000 TL altındaki teklifler için kargo kaydı üretilmez. Teklifin kendi fiyatı 3.000 TL veya üzerindeyse doğrulanmış ücretsiz kargo bilgisi yine üretilir. Bu ayar Shopify'ın ücret tahsilatını değiştirmez.
 - Ücret tanımlanınca her teklife `shippingDetails` eklenir ve aynı standart ücret ürün sayfasının kargo/iade bölümünde görünür. Hazırlık süresi 2 iş gününe kadar, taşıma süresi 1–4 iş günüdür; bu aralıklar mevcut mağaza açıklamalarına dayanır.
-- Teklifin kendi ürün fiyatı 3.000 TL üzerindeyse kargo `0` olur. Daha ucuz bir üründe standart tek ürün ücreti bildirilir. Birden çok ürünle elde edilen ücretsiz kargo eşiği görünür metinde açıklanır; Merchant Center'daki sepet tutarına bağlı kargo ayarı da aynı koşula göre yapılandırılmalıdır.
+- Teklifin kendi ürün fiyatı 3.000 TL ve üzerindeyse kargo `0` olur. Daha ucuz bir üründe standart tek ürün ücreti bildirilir. Birden çok ürünle elde edilen ücretsiz kargo eşiği görünür metinde açıklanır; Merchant Center'daki sepet tutarına bağlı kargo ayarı da aynı koşula göre yapılandırılmalıdır.
 - **İade kargo masrafı:** Gerçek uygulamayı seçin. Mağaza karşılıyorsa `FreeReturn` üretilir. Müşterinin ödediği sabit bir tutar doğrulanmışsa ilgili alana girilebilir. Değişken veya bilinmeyen bir iade ücreti uydurulmaz; sabit ücret alanı boş bırakılır.
 
-Mevcut fiyat kuralı **3.000 TL üzeri** şeklindedir: tam 3.000 TL standart ücretli, 3.000,01 TL ücretsizdir. Shopify kargo ayarı farklı çalışıyorsa önce görünür koşullar, Merchant Center ve gerçek ödeme ayarları eşitlenmelidir.
+Mevcut fiyat kuralı **3.000 TL ve üzeri** şeklindedir: 2.999,99 TL standart ücretli, tam 3.000 TL ücretsizdir. Shopify kargo ayarı farklı çalışıyorsa önce görünür koşullar, Merchant Center ve gerçek ödeme ayarları eşitlenmelidir.
+
+Değişken kargo tutarı olan 3.000 TL altı ürün teklifleri için Google'a sabit veya sıfır ücret gönderilmez. Bu ürünlerde `shippingDetails` önerisi kalabilir. Google Merchant Center'da gerçek hesaplama kuralı tanımlanmalı; temaya rastgele tutar girilerek uyarı kapatılmamalıdır.
 
 ## Yorumlar
 

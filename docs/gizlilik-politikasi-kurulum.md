@@ -25,6 +25,6 @@ Shopify Admin > Ayarlar > Genel bölümündeki mağaza adını da **Mind Over Ma
 
 Bu dosyalar hazırlanmıştır; Shopify Admin erişimi bulunmadığı için politika kayıtları buradan kaydedilememiştir. GitHub bağlantısı yalnızca tema dosyalarını senkronize eder.
 
-İade politikası, Türkiye siparişlerinde teslimattan itibaren **14 gün içinde iade talebi** oluşturulabileceğini ve başvuru adımlarını açıklar. Kargo politikası, Türkiye içi **3.000 TL üzeri siparişlerde ücretsiz standart kargo** koşulunu açıklar. Bunlar ana sayfadaki mevcut koşullarla eşitlenmiştir; kargo ücretini uygulayan Shopify kargo ayarı ayrıca bu koşulla aynı olmalıdır.
+İade politikası, Türkiye siparişlerinde teslimattan itibaren **14 gün içinde iade talebi** oluşturulabileceğini ve başvuru adımlarını açıklar. Kargo politikası, Türkiye içi **3.000 TL ve üzeri siparişlerde ücretsiz standart kargo** koşulunu açıklar. Bunlar ana sayfadaki mevcut koşullarla eşitlenmiştir; kargo ücretini uygulayan Shopify kargo ayarı ayrıca bu koşulla aynı olmalıdır.
 
 Otomatik kayıt için ortam ayarlarında `SHOPIFY_ADMIN_ACCESS_TOKEN` erişim gereksinimi tanımlanmıştır; hedef yalnızca `zw4bkm-21.myshopify.com` alan adıdır. Politikaları düzenleme yetkisi olan Shopify Admin API erişimini güvenli ayarlardan ekleyin. Token değerini sohbet veya GitHub dosyalarına yazmayın. Erişim sağlanınca mevcut politikaların yedeği alınarak güncelleme ve canlı içerik kontrolü yapılmalıdır.

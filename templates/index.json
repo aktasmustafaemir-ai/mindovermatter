@@ -119,9 +119,9 @@
           "type": "benefit",
           "settings": {
             "title": "ÜCRETSİZ KARGO",
-            "text": "3.000 TL ÜZERİ SİPARİŞLERDE",
+            "text": "3.000 TL VE ÜZERİ SİPARİŞLERDE",
             "title_en": "FREE TÜRKİYE SHIPPING",
-            "text_en": "ON ORDERS OVER ₺3,000"
+            "text_en": "ON ORDERS OF ₺3,000 OR MORE"
           }
         },
         "benefit2": {
