@@ -72,7 +72,11 @@ html, body,
 .collection-page { max-width: var(--mom-content); margin: 0 auto; padding: 32px var(--mom-space) 64px; }
 .product-page { padding: 40px var(--mom-space) 64px; gap: 56px; max-width: var(--mom-content); grid-template-columns: 1.1fr 1fr; }
 .product-gallery { align-self: start; }
-.product-main-media { margin: 0; }
+.product-main-media { margin: 0; max-width: 100%; aspect-ratio: 3 / 4; max-height: max(120px, calc(100svh - 280px)); }
+.product-gallery .mom-image-zoom { position: absolute; inset: 0; width: 100%; height: 100%; }
+.product-gallery .product-main-media img { display: block; width: 100%; height: 100%; max-height: 100%; aspect-ratio: auto; object-fit: contain; object-position: center; }
+dialog.mom-zoom-dialog[open] { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); place-items: center; width: 100vw; height: 100dvh; padding: 64px 20px 20px; box-sizing: border-box; overflow: hidden; }
+.mom-zoom-dialog img { width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 100%; max-height: 100%; object-fit: contain; margin: 0; }
 .product-detail h1 { font-size: clamp(26px, 2.4vw, 36px); line-height: 1.15; }
 .mom-product-fit-note { font-size: 14px; line-height: 1.5; color: var(--mom-muted); margin: 8px 0 16px; }
 .detail-price { font-size: 24px; margin-bottom: 24px; }
@@ -121,25 +125,29 @@ html, body,
 .mom-payment-list { gap: 6px; }
 .mom-payment-list .mom-payment-icon { width: 38px; height: 24px; }
 .mom-back-top { bottom: 20px; width: 44px; height: 44px; border: 1px solid var(--mom-border); box-shadow: none; }
-.mom-footer-offer { grid-column: 1 / -1; }
-.discount-teaser { position: static; display: inline-flex; align-items: center; gap: 24px; top: auto; bottom: auto; height: auto; writing-mode: horizontal-tb; transform: none; border: 1px solid #000; border-radius: 0; padding: 12px 16px; font-size: 12px; letter-spacing: .02em; box-shadow: none; min-height: 44px; background: transparent; color: #000; }
-.mom-footer-offer .discount-teaser { width: max-content; min-width: 190px; max-width: 100%; justify-content: space-between; white-space: normal; }
+.discount-teaser { position: fixed; right: 0; left: auto; top: 50%; bottom: auto; z-index: 40; display: grid; place-items: center; width: 44px; height: 150px; min-height: 44px; writing-mode: vertical-rl; transform: translateY(-50%); border: 1px solid #111; border-right: 0; border-radius: 4px 0 0 4px; padding: 16px 12px; background: #111; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .08em; line-height: 1; box-shadow: none; }
+.discount-teaser:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
 dialog.discount-popup-layer { display: grid; place-items: center; padding: 20px; }
-.discount-popup { display: block; position: relative; width: min(480px, 100%); min-height: 0; max-height: calc(100dvh - 40px); overflow-y: auto; margin: auto; background: var(--mom-page); box-shadow: 0 24px 80px #0003; }
-.discount-popup-copy { padding: 48px 32px 28px; max-height: none; overflow: visible; }
-.discount-popup .mom-eyebrow { font-size: 10px; margin-bottom: 20px; }
-.discount-popup h2 { font-size: clamp(38px, 6vw, 54px); line-height: 1; margin: 0 0 20px; }
-.discount-popup .discount-lead { font-size: 15px; line-height: 1.65; margin: 0 0 24px; }
+.discount-popup { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); position: relative; width: min(880px, 100%); height: min(640px, calc(100dvh - 40px)); min-height: 0; max-height: calc(100dvh - 40px); overflow: hidden; margin: auto; background: #fff; box-shadow: 0 24px 80px #0003; }
+.discount-popup-image { display: block; min-width: 0; min-height: 0; height: 100%; background: #fff; }
+.discount-popup-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.discount-popup-copy { min-width: 0; min-height: 0; padding: 32px 32px 24px; max-height: 100%; overflow-y: auto; justify-content: safe center; }
+.discount-popup-copy > * { flex-shrink: 0; }
+.discount-popup-logo { width: 160px; height: auto; max-height: 56px; margin: 0 auto 18px; object-fit: contain; }
+.discount-popup h2 { font-weight: 800; line-height: .95; margin: 0 0 18px; letter-spacing: -.04em; }
+.discount-percentage { display: block; font-size: 80px; }
+.discount-heading { display: block; margin-top: 4px; font-size: 30px; letter-spacing: -.02em; }
+.discount-popup .discount-lead { font-size: 14px; line-height: 1.5; margin: 0 0 18px; }
 .discount-popup [data-offer-step="2"] > .discount-lead { display: block; }
 .discount-email-form label { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
-.discount-popup-close { width: 44px; height: 44px; top: 5px; right: 5px; font-size: 26px; }
+.discount-popup-close { width: 44px; height: 44px; top: 4px; right: 4px; font-size: 28px; background: #fff; border-radius: 0; }
 .discount-email-form > label:not(.discount-consent) { font-size: 12px; line-height: 1.5; margin-bottom: 8px; display: block; }
 .discount-email-form > input[type=email] { border: 1px solid #aaa; border-radius: 0; width: 100%; min-height: 48px; font-size: 16px; background: #fff; padding: 12px; }
-.discount-email-form .discount-consent { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0 22px; font-size: 12px; line-height: 1.6; text-align: left; }
+.discount-email-form .discount-consent { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 16px; font-size: 11px; line-height: 1.5; text-align: left; }
 .discount-consent input[type=checkbox] { width: 18px; height: 18px; margin: 2px 0 0; flex: 0 0 18px; accent-color: #000; }
 .discount-consent a { text-decoration: underline; text-underline-offset: 2px; }
 .discount-email-form button, .discount-shop { display: flex; justify-content: space-between; align-items: center; width: 100%; height: auto; min-height: 50px; padding: 12px 18px; font-size: 12px; letter-spacing: .05em; }
-.discount-decline { display: block; min-height: 44px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin: 12px auto 0; }
+.discount-decline { display: block; min-height: 32px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; margin: 8px auto 0; }
 .discount-code { width: 100%; padding: 16px; margin-bottom: 16px; }
 .mom-contact-page { max-width: 1280px; margin: auto; padding: 64px var(--mom-space) 72px; background: #fff; }
 .mom-contact-header { margin-bottom: 48px; max-width: 720px; }
@@ -247,12 +255,15 @@ dialog.discount-popup-layer { display: grid; place-items: center; padding: 20px;
   .mom-payment-list { justify-content: flex-start; }
   .mom-footer-bottom nav { gap: 4px 16px; }
   .mom-footer-bottom nav a { min-height: 36px; display: flex; align-items: center; }
-  .discount-teaser { left: 12px; bottom: 12px; }
   .mom-back-top { right: 12px; bottom: 12px; }
   dialog.discount-popup-layer { padding: 16px; }
-  .discount-popup { width: 100%; max-height: calc(100dvh - 32px); }
-  .discount-popup-copy { padding: 44px 24px 24px; }
-  .discount-popup h2 { font-size: 44px; }
+  .discount-teaser { width: 36px; height: 132px; padding: 12px 8px; font-size: 11px; }
+  .discount-popup { display: block; width: min(420px, 100%); height: auto; max-height: calc(100dvh - 32px); }
+  .discount-popup-image { display: none; }
+  .discount-popup-copy { padding: 28px 24px 20px; max-height: calc(100dvh - 32px); }
+  .discount-popup-logo { width: 150px; max-height: 50px; margin-bottom: 14px; }
+  .discount-percentage { font-size: 72px; }
+  .discount-heading { font-size: 28px; }
   .mom-contact-page { padding: 40px var(--mom-space) 48px; }
   .mom-contact-header { margin-bottom: 32px; }
   .mom-contact-header h1 { font-size: 42px; }

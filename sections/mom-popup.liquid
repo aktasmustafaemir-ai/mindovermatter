@@ -1,13 +1,21 @@
 {% if section.settings.enabled and section.settings.code != blank %}
   {%- assign mom_discount_code_path = section.settings.code | url_encode -%}
   {%- capture mom_discount_url -%}/discount/{{ mom_discount_code_path }}?redirect={{ routes.all_products_collection_url | url_encode }}{%- endcapture -%}
+  <button type="button" class="discount-teaser" data-mom-open="MomOffer" aria-controls="MomOffer" aria-haspopup="dialog" hidden>{% if request.locale.iso_code == 'en' %}{{ section.settings.amount }}% OFF{% else %}%{{ section.settings.amount }} İNDİRİM{% endif %}</button>
   <dialog id="MomOffer" class="discount-popup-layer mom-dialog" data-delay="{{ section.settings.delay | times: 1000 }}" data-code="{{ section.settings.code | escape }}" data-auto-show="{% if request.page_type == 'index' %}true{% else %}false{% endif %}" data-active-step="2" aria-labelledby="discount-title">
     <button type="button" class="discount-popup-backdrop" data-mom-close aria-label="{{ 'actions.close' | t }}"></button>
     <section class="discount-popup">
       <button type="button" class="discount-popup-close" data-mom-close aria-label="{{ 'actions.close' | t }}">×</button>
+      <div class="discount-popup-image" aria-hidden="true">
+        {% if section.settings.image %}
+          {{ section.settings.image | image_url: width: 1000 | image_tag: widths: '400,700,1000', sizes: '40vw', loading: 'lazy', alt: '' }}
+        {% else %}
+          <img src="{{ 'mom-contact-desktop.jpg' | asset_img_url: '700x' }}" width="700" height="933" loading="lazy" alt="">
+        {% endif %}
+      </div>
       <div class="discount-popup-copy">
-        <p class="mom-eyebrow">MIND OVER MATTER / DROP 01</p>
-        <h2 id="discount-title">%{{ section.settings.amount }} {% if request.locale.iso_code == 'en' %}OFF.{% else %}İNDİRİM.{% endif %}</h2>
+        <img class="discount-popup-logo" src="{{ 'mom-mind-over-matter-wordmark-black.png' | asset_url }}" width="360" height="140" alt="Mind Over Matter" loading="lazy">
+        <h2 id="discount-title"><span class="discount-percentage">{% if request.locale.iso_code == 'en' %}{{ section.settings.amount }}%{% else %}%{{ section.settings.amount }}{% endif %}</span><span class="discount-heading">{% if request.locale.iso_code == 'en' %}OFF{% else %}İNDİRİM{% endif %}</span></h2>
         <div data-offer-step="2">
           <p class="discount-lead">{{ 'mom.offer_email' | t }}</p>
           {% form 'customer', id: 'MomOfferForm', class: 'discount-email-form' %}
